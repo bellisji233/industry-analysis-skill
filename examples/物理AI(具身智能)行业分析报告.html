@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物理AI(具身智能)行业分析报告</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#171c24; --card2:#1f2630; --line:#2a313c;
+    --txt:#e6e9ee; --mut:#9aa4b2; --acc:#4f9cf9; --acc2:#22c39a;
+    --h1:#ff6b6b; --h2:#ffb454; --h3:#ffe066; --h4:#a0d995; --h5:#22c39a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+  header.rep{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:8px}
+  header.rep h1{font-size:30px;margin:0 0 8px}
+  header.rep .meta{color:var(--mut);font-size:13px}
+  .tag{display:inline-block;background:var(--card2);color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px}
+  h2.sec{font-size:21px;margin:48px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin:-8px 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;background:var(--card2)}
+  .src{color:var(--mut);font-size:11.5px}
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .chain .seg-title{font-weight:700;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px;color:#0e1116}
+  .chain .up{background:#4f9cf9}.chain .mid{background:#9aa4b2}.chain .down{background:#22c39a}
+  .node{border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);font-size:13px}
+  .node b{display:block;font-size:13.5px}
+  .node span{font-size:12px}
+  .node[data-heat="1"]{background:var(--h1)}.node[data-heat="2"]{background:var(--h2)}
+  .node[data-heat="3"]{background:var(--h3)}.node[data-heat="4"]{background:var(--h4)}
+  .node[data-heat="5"]{background:var(--h5)}
+  .node[data-heat] b,.node[data-heat] span{color:#0e1116}
+  .legend{font-size:12px;color:var(--mut);margin-top:10px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 12px}
+  .heat td.cell{text-align:center;font-weight:700;color:#0e1116;width:64px}
+  .heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}
+  .heat .v4{background:var(--h4)}.heat .v5{background:var(--h5)}
+  .heat .total{font-weight:800}
+  .star{color:#ffe066}
+  .chk{font-size:11.5px;border-radius:6px;padding:1px 8px;white-space:nowrap;border:1px solid}
+  .chk-ok{color:var(--h5);border-color:var(--h5)}
+  .chk-warn{color:var(--h2);border-color:var(--h2)}
+  .chk-low{color:var(--acc);border-color:var(--acc)}
+  .chk-na{color:var(--mut);border-color:var(--mut)}
+  .tree{list-style:none;padding-left:0}
+  .tree li{margin:6px 0}
+  .tree .lvl1{font-weight:700;color:var(--acc2)}
+  .tree ul{list-style:none;border-left:2px solid var(--line);margin-left:10px;padding-left:18px}
+  .tree .lvl2{color:var(--txt)} .tree .lvl3{color:var(--mut);font-size:13px}
+  .thesis{border-left:4px solid var(--acc2)}
+  .thesis .k{color:var(--acc2);font-weight:700}
+  .bear{border-left:4px solid var(--h1)}
+  .bear .k{color:var(--h1);font-weight:700}
+  .b-bear{color:var(--h1);border-color:var(--h1)}
+  .conf{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0 4px;font-size:13px;color:var(--mut)}
+  .conf b{color:var(--txt)}
+  .badge{font-size:11px;border-radius:6px;padding:1px 8px;border:1px solid var(--line)}
+  .b-up{color:var(--h5);border-color:var(--h5)} .b-warn{color:var(--h2);border-color:var(--h2)}
+  .disc{color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+</style>
+</head>
+<body>
+<!--SNAPSHOT-BANNER--><div style="background:#3a2a00;color:#ffe066;border-bottom:1px solid #ffb454;padding:8px 16px;font:13px/1.5 -apple-system,'PingFang SC','Microsoft YaHei',sans-serif;text-align:center">⚠️ 示例快照 · 仅演示报告格式 —— 内含市场数据/估值为生成时点，会随时间过时，请勿据此做当前投资决策。</div>
+<div class="wrap">
+
+<header class="rep">
+  <h1>物理 AI（具身智能）行业分析报告</h1>
+  <div style="margin:10px 0">
+    <span class="tag">成长期 · 2026 量产元年</span>
+    <span class="tag">A股为主 · 兼顾海外龙头</span>
+    <span class="tag">全景：具身智能 + 人形机器人为核心</span>
+  </div>
+  <div class="meta">生成日期：2026-07-04 ｜ 数据来源：联网检索，详见各处标注 ｜ 仅供研究参考，非投资建议</div>
+</header>
+
+<div class="conf">
+  <b>数据置信度总评：</b>核心数据 <b>约 20</b> 项已联网/接口核验（含 PE/PB/PS <b>历史分位实测</b>，akshare 取数 2026-07-03）｜ <b>约 10</b> 项为模型结构化定性判断（三高/价值迁移/赔率）｜ <b>约 4</b> 项仍缺失（丝杠量产良率、机器人业务净利拆分、未上市龙头财务，见文末尽调清单）。
+  <b>历史估值分位已用一手数据补全；PEG 为东财口径、失真项已标 ⚠️；未来净利一致预期仍建议用 Wind 核实。</b>
+</div>
+
+<div class="card">
+  <b>核心结论速览</b>
+  <ul>
+    <li><b>产业概况：</b>物理 AI = "能感知、理解并操作物理世界的 AI"，载体以人形/具身机器人为核心。全球正处 <b>2026 量产元年</b>：特斯拉 Optimus V3 计划年中投产、2026 目标 5–10 万台；2025 全球人形机器人出货约 1.3 万台（智元 5168 台居首、宇树 4200+、优必选 1000 台）。中国具身智能用户支出 2025 约 14 亿美元 → 2030 约 770 亿美元（CAGR≈94%）。</li>
+    <li><b>高价值环节（"钱在哪"）：</b>价值高地在<b>「大脑（具身大模型/AI 算力）+ 上游精密硬件卡脖子件（丝杠、力/触觉传感器、灵巧手、谐波/一体化关节）」</b>两端；<b>本体总成/组装是微笑曲线底部</b>，同质化、易价格战。<b>大脑与算力的利润主要被海外（英伟达/特斯拉）拿走</b>，A 股核心 α 在<b>上游硬件国产替代</b>。</li>
+    <li><b>投资主线：</b>①卡脖子硬件国产替代（丝杠、六维力/触觉传感器——价值量高、国产化率低）；②Optimus 量产弹性（执行器总成/热管理）；③大脑与数据（海外主导，A 股映射弱，重认知轻仓位）。</li>
+    <li><b>主要风险：</b>板块 2025 已涨 50%–100%、估值透支，共识拥挤；量产节奏易低于预期；降本压价致上游龙头毛利已现下滑（绿的谐波 2025H1 毛利率 -5.62pct）；本体厂自研执行器（特斯拉全自研）可能绕过供应商。</li>
+  </ul>
+</div>
+
+<!-- 阶段0 边界回显 -->
+<h2 class="sec">〇、范围界定（已与用户确认）</h2>
+<div class="card">
+  <table>
+    <tr><th>维度</th><th>本报告采用的边界</th></tr>
+    <tr><td>行业定义</td><td><b>物理 AI（Physical AI）</b>：能感知—理解—决策—<b>操作物理世界</b>的 AI 系统。以<b>具身智能 + 人形/通用机器人</b>为核心载体。</td></tr>
+    <tr><td>含</td><td>上游核心零部件（丝杠/减速器/电机/力·触觉传感器/灵巧手/轴承/AI 芯片）、大脑—小脑模型层（VLA/世界模型/仿真）、本体总成、下游工业/商用/服务场景。</td></tr>
+    <tr><td>不含（本次弱化）</td><td>纯自动驾驶、纯工业机械臂、无人机/低空——与"人形具身"共享部分供应链但不作为主线下钻（用户选"全景具身智能+机器人为核心"）。</td></tr>
+    <tr><td>视角/重心</td><td>A 股为主 + 兼顾海外龙头定位；产业理解 + 投资择股并重、偏投资。</td></tr>
+    <tr><td>周期位置</td><td><b>成长导入期 / 量产元年</b>：需求侧 S 曲线陡升前夜，供给侧从样机走向小批量；估值已提前透支，进入"去伪存真、Beta 转 Alpha"阶段。</td></tr>
+  </table>
+</div>
+
+<!-- 阶段1 产业链图谱 -->
+<h2 class="sec">一、产业链图谱</h2>
+<div class="sub">颜色越绿=价值捕获/单环节价值量越高（热力 1低→5高）。价值量占比以特斯拉 Optimus BOM 为锚（艾邦机器人/华泰/东吴，2024–2025）。</div>
+<div class="card">
+  <div class="chain">
+    <div>
+      <div class="seg-title up">上游 · 核心零部件 & 算力</div>
+      <div class="node" data-heat="5"><b>行星滚柱丝杠 / 丝杠</b><span>五洲新春·恒立液压·北特科技｜价值量≈18-19%｜国产化≈19%</span></div>
+      <div class="node" data-heat="4"><b>力/触觉传感器（六维力·电子皮肤）</b><span>柯力·东华测试·蓝点触控(未上市)｜≈11-15%｜外资占约68%</span></div>
+      <div class="node" data-heat="4"><b>灵巧手（总成）</b><span>兆威机电·鸣志｜价值量≈14%(高至32%)｜路线未定</span></div>
+      <div class="node" data-heat="4"><b>谐波/RV 减速器</b><span>绿的谐波·来福｜≈12-13%｜绿的全球≈15%,哈默纳科主导</span></div>
+      <div class="node" data-heat="3"><b>无框力矩/空心杯电机</b><span>汇川·鸣志·步科｜≈16-24%｜伺服国产替代&lt;30%</span></div>
+      <div class="node" data-heat="5"><b>AI 芯片 / 算力（大脑硬件）</b><span>英伟达(海外主导)｜价值高地·利润外流</span></div>
+      <div class="node" data-heat="2"><b>轴承 / 结构件</b><span>长盛·五洲新春｜≈5.5%｜壁垒偏低</span></div>
+    </div>
+    <div>
+      <div class="seg-title mid">中游 · 大脑/小脑 & 本体</div>
+      <div class="node" data-heat="5"><b>具身大模型 / VLA / 世界模型（大脑）</b><span>英伟达 Isaac·特斯拉 FSD·星海图·智元｜壁垒最高·利润高地</span></div>
+      <div class="node" data-heat="4"><b>一体化关节 / 执行器总成</b><span>拓普集团·三花智控｜Optimus 一级供应商</span></div>
+      <div class="node" data-heat="2"><b>本体总成 / 集成制造</b><span>特斯拉·宇树·智元·优必选·Figure｜微笑曲线底部·易价格战</span></div>
+    </div>
+    <div>
+      <div class="seg-title down">下游 · 应用场景</div>
+      <div class="node" data-heat="4"><b>工业制造（先落地）</b><span>汽车厂/3C 产线·搬运分拣｜优必选 Walker S2 订单 13 亿</span></div>
+      <div class="node" data-heat="3"><b>商用服务 / 巡检</b><span>展厅·导览·安防</span></div>
+      <div class="node" data-heat="3"><b>物流 / 特种</b><span>仓储·电力·危险作业</span></div>
+      <div class="node" data-heat="2"><b>家庭 / 消费（远期）</b><span>渗透率极低·成本待破 2 万美元</span></div>
+    </div>
+  </div>
+  <div class="legend">价值热力：
+    <i style="background:var(--h1)"></i>1 <i style="background:var(--h2)"></i>2
+    <i style="background:var(--h3)"></i>3 <i style="background:var(--h4)"></i>4
+    <i style="background:var(--h5)"></i>5
+  </div>
+  <div class="src">价值量占比来源：艾邦机器人《一文读懂人形机器人核心零部件》、华泰证券供应链报告、Optimus BOM 拆解（截至 2024–2025，量产态口径差异较大，此处取区间）。执行系统（丝杠+电机+减速器）+ 传感系统合计约占 BOM 60%+。</div>
+</div>
+
+<div class="card">
+  <b>钱在哪：三句话</b>
+  <ul>
+    <li><b>硬件端</b>：价值量最大的是<b>丝杠(≈18%)＞电机(≈16-24%)＞灵巧手(≈14%)＞减速器(≈12%)＞力传感器(≈11-15%)</b>；执行 + 感知合计占整机成本 60%+。</li>
+    <li><b>利润端（微笑曲线）</b>：左端"卡脖子件（丝杠/高端力传感器）"与"大脑（模型/算力）"高利润；<b>中间本体组装利润薄</b>。</li>
+    <li><b>拿走利润的海外环节（必标）</b>：<b>英伟达（算力+Isaac 仿真）、特斯拉（FSD 大脑+自研执行器）、哈默纳科（减速器）、Rollvis/GSA/Rexroth/Ewellix（丝杠 CR≈80%）</b>——A 股是"受益/替代"角色，真正的价值高地目前在海外。</li>
+  </ul>
+</div>
+
+<!-- 阶段2 三高矩阵 -->
+<h2 class="sec">二、高价值方向识别（高增长 / 高利润 / 高壁垒）</h2>
+<div class="sub">每维 1–5 分，总分 15。价值迁移=未来1–3年价值流向。★=高价值象限；⭐=高价值且迁入(最优)。</div>
+<div class="card">
+  <table class="heat">
+    <tr><th>环节</th><th>增长</th><th>利润</th><th>壁垒</th><th>总分</th><th>价值量</th><th>国产化</th><th>价值迁移</th><th></th></tr>
+    <tr>
+      <td>AI 芯片/算力（大脑硬件）</td>
+      <td class="cell v5">5</td><td class="cell v5">5</td><td class="cell v5">5</td>
+      <td class="total">15</td><td>高</td><td>低(海外)</td>
+      <td title="算力需求持续迁入，英伟达生态壁垒加深">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>具身大模型/VLA/世界模型（大脑）</td>
+      <td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v5">5</td>
+      <td class="total">14</td><td>高</td><td>—</td>
+      <td title="从VLA向世界模型迁移，数据与泛化是护城河">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>行星滚柱丝杠</td>
+      <td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v5">5</td>
+      <td class="total">14</td><td>最高≈18%</td><td>≈19%</td>
+      <td title="量产放量+国产替代兑现，价值持续迁入">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>力/触觉传感器（六维力·电子皮肤）</td>
+      <td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v4">4</td>
+      <td class="total">13</td><td>≈11-15%</td><td>低(外资68%)</td>
+      <td title="触觉是VLA下一瓶颈,单机用量提升,国产替代">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>一体化关节/执行器总成</td>
+      <td class="cell v5">5</td><td class="cell v3">3</td><td class="cell v4">4</td>
+      <td class="total">12</td><td>高</td><td>中</td>
+      <td title="总成集成能力+特斯拉认证,价值向系统集成方汇聚">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>灵巧手（总成）</td>
+      <td class="cell v5">5</td><td class="cell v3">3</td><td class="cell v4">4</td>
+      <td class="total">12</td><td>≈14%</td><td>中低</td>
+      <td title="自由度升级+触觉集成,价值量占比抬升,但路线未定">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>谐波/RV 减速器</td>
+      <td class="cell v4">4</td><td class="cell v3">3</td><td class="cell v4">4</td>
+      <td class="total">11</td><td>≈12%</td><td>绿的≈15%全球</td>
+      <td title="格局已较清晰+降本压价,毛利下滑,价值趋稳/微迁出">↓迁出</td><td class="star">★</td>
+    </tr>
+    <tr>
+      <td>无框力矩/空心杯电机</td>
+      <td class="cell v4">4</td><td class="cell v3">3</td><td class="cell v3">3</td>
+      <td class="total">10</td><td>≈16-24%</td><td>&lt;30%</td>
+      <td title="价值量大但壁垒中等,替代与价格战并存">→稳定</td><td></td>
+    </tr>
+    <tr>
+      <td>本体总成 / 集成制造</td>
+      <td class="cell v5">5</td><td class="cell v2">2</td><td class="cell v3">3</td>
+      <td class="total">10</td><td>低(组装)</td><td>高</td>
+      <td title="同质化+价格战,利润向上游零件与大脑两端迁出">↓迁出</td><td></td>
+    </tr>
+    <tr>
+      <td>轴承 / 结构件</td>
+      <td class="cell v4">4</td><td class="cell v2">2</td><td class="cell v2">2</td>
+      <td class="total">8</td><td>≈5.5%</td><td>较高</td>
+      <td title="放量受益但壁垒低,难享超额利润">→稳定</td><td></td>
+    </tr>
+  </table>
+  <div class="src">价值迁移为前瞻定性判断；重大迁移假设在下方 Bear Case 给出对应证伪信号。<b>最优象限（高价值+迁入 ⭐）：丝杠、力/触觉传感器、一体化关节、灵巧手、（海外）大脑/算力。</b></div>
+</div>
+
+<div class="card">
+  <b>财务交叉校验</b>
+  <div class="sub">主观分须有数据兜底。状态：✅一致 ⚠️偏乐观(分>数据,须前瞻理由否则下修) 🔵偏保守 ❓数据缺失</div>
+  <table>
+    <tr><th>环节</th><th>增长锚</th><th>利润锚（毛利/ROE）</th><th>壁垒锚（CR/市占/研发）</th><th>状态</th><th>说明</th></tr>
+    <tr>
+      <td>谐波减速器<br>（绿的谐波）</td>
+      <td>2025 归母净利 +121.4%；机器人相关收入 25Q1 占比≈30%<div class="src">新浪财经·2026-04</div></td>
+      <td>2025H1 毛利率 34.77%(<b>-5.62pct</b>)；净利率 21.91%<div class="src">新浪财经·2025-08</div></td>
+      <td>研发费用率 9.16%；绿的全球≈15%、哈默纳科历史主导<div class="src">GGII·2025</div></td>
+      <td><span class="chk chk-ok">✅一致</span><br><span class="src">趋势：⚠️毛利 -5.62pct</span></td>
+      <td>毛利率 34.77% 按区间表本就对应利润 3 分，分数与数据<b>一致</b>；但<b>毛利率同比 -5.62pct 是"下滑趋势"信号（非分数背离）</b>，降本压价已现，若续跌则下轮下修利润分。<span class="src">[校验状态 vs 趋势备注分列]</span></td>
+    </tr>
+    <tr>
+      <td>行星滚柱丝杠</td>
+      <td>全球市场约 10 亿美元级(2030≈18亿美元, 传统 CAGR≈4.5%)；<b>人形放量后弹性远高于存量测算</b><div class="src">DataIntelo·2030E</div></td>
+      <td>量产前，A 股厂商机器人丝杠<b>营收尚未兑现</b>，利润为预期<div class="src">界面新闻·2025-03</div></td>
+      <td>海外 Rollvis/GSA/Rexroth/Ewellix CR≈80%；国产份额≈19%，<b>磨削/旋铣工艺+良率壁垒高</b><div class="src">东方财富研报·2023-08</div></td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td>打分高于当前财务表现，<b>前瞻理由</b>：价值量最高(≈18%)+国产化率最低(≈19%)+Optimus 量产直接拉动。良率与量产爬坡是最大不确定，若 2026 未兑现应下修。</td>
+    </tr>
+    <tr>
+      <td>力/触觉传感器</td>
+      <td>六维力 2030 中国市场约 138 亿元；蓝点触控人形市占≈62%(2025目标&gt;70%)<div class="src">远瞻慧库/GGII·2025</div></td>
+      <td>高端力传感器毛利较高，但龙头多未上市，A 股纯度低<div class="src">—</div></td>
+      <td>外资占我国六维力约 67.9%(2023)；国产加速替代<div class="src">GGII·2025</div></td>
+      <td><span class="chk chk-na">❓数据缺失</span></td>
+      <td>增长 ✅；但<b>利润锚缺可靠 A 股财务佐证</b>（龙头未上市），结论按定性判断打折。</td>
+    </tr>
+    <tr>
+      <td>执行器/热管理<br>（三花智控）</td>
+      <td>机构预测 2025 净利 38.07 亿(+26.9%)<div class="src">同花顺·2025</div></td>
+      <td>家电零部件基础毛利稳健；机器人业务毛利待验证<div class="src">东吴证券深度</div></td>
+      <td>Optimus 一级供应商、单机价值≈2.8 万元、专利 4200+<div class="src">证券时报·2025</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>基本盘增长与地位有数据支撑；机器人为期权，估值已含预期。</td>
+    </tr>
+    <tr>
+      <td>大脑/算力（海外）</td>
+      <td>算力需求随机器人放量抬升<div class="src">—</div></td>
+      <td>英伟达数据中心毛利率长期 70%+（定性）<div class="src">公开财报</div></td>
+      <td>CUDA/Isaac 生态、FSD 数据闭环，壁垒极高<div class="src">—</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>三高最强，但<b>非 A 股标的</b>，A 股无法直接映射该利润，仅作产业定位。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <b>高价值环节三高对比雷达</b>
+  <div class="sub">三轴：增长 / 利润 / 壁垒，外圈=5分。叠加对比看形状差异——谁在哪根轴强、本体总成为何"缩水"。</div>
+  <svg width="320" height="300" viewBox="0 0 320 300">
+    <g stroke="#2a313c" fill="none">
+      <polygon points="150,40 236.6,190 63.4,190"/>
+      <polygon points="150,65 215,177.5 85,177.5"/>
+      <polygon points="150,90 193.3,165 106.7,165"/>
+    </g>
+    <line x1="150" y1="140" x2="150" y2="40" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="236.6" y2="190" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="63.4" y2="190" stroke="#2a313c"/>
+    <text x="150" y="30" fill="#9aa4b2" font-size="12" text-anchor="middle">增长</text>
+    <text x="250" y="200" fill="#9aa4b2" font-size="12">利润</text>
+    <text x="20" y="200" fill="#9aa4b2" font-size="12">壁垒</text>
+    <!-- 丝杠 5/4/5 --><polygon points="150,40 219.3,180 63.4,190" fill="rgba(34,195,154,.20)" stroke="#22c39a" stroke-width="2"/>
+    <!-- 执行器 5/3/4 --><polygon points="150,40 202,170 80.7,180" fill="rgba(79,156,249,.14)" stroke="#4f9cf9" stroke-width="2"/>
+    <!-- 谐波 4/3/4 --><polygon points="150,60 202,170 80.7,180" fill="rgba(255,180,84,.12)" stroke="#ffb454" stroke-width="2"/>
+    <!-- 本体总成 5/2/3 --><polygon points="150,40 184.6,160 98,170" fill="rgba(255,107,107,.12)" stroke="#ff6b6b" stroke-width="2"/>
+  </svg>
+  <div class="legend">
+    <i style="background:#22c39a"></i>行星滚柱丝杠(5/4/5)
+    <i style="background:#4f9cf9"></i>一体化关节/执行器(5/3/4)
+    <i style="background:#ffb454"></i>谐波减速器(4/3/4)
+    <i style="background:#ff6b6b"></i>本体总成(5/2/3)
+  </div>
+  <div class="src">看形状：三者都在"增长"轴顶格，差异全在<b>利润/壁垒</b>轴——丝杠面积最大（三高俱强），<b>本体总成利润轴明显内缩</b>（组装利润薄），一眼看清"为什么钱不在组装环节"。丝杠利润分为"前瞻兑现"非当前财务，见校验表。</div>
+</div>
+
+<!-- 阶段3 下钻 -->
+<h2 class="sec">三、价值方向下探（细分赛道 / 卡位点）</h2>
+<!--named-kawei-gloss-->
+<div class="sub"><b>名词解释 · 卡位点</b>：一条赛道里真正决定"谁能卡住利润、别人绕不过去"的<b>具体控制点</b>（某道工序 / 资质 / 数据 / 独家客户）。<b>价值量</b>说明"钱在哪个环节"，<b>卡位点</b>说明"这钱最终被哪个具体能力拿走、能不能被别人抢走"——卡位点越窄越硬，超额利润越留得住；没有独占卡位点的环节（如纯组装）即便价值量大也赚不到钱。</div>
+<div class="card">
+  <ul class="tree">
+    <li class="lvl1">丝杠（价值量最高 · 国产化最低 · 壁垒最硬）
+      <ul>
+        <li class="lvl2">行星滚柱丝杠 — 格局：海外 CR≈80% 垄断；确定性/弹性：<b>高弹性</b>（国产从 0→1）
+          <ul><li class="lvl3">卡位点：<b>磨削/旋铣工艺 + 量产良率 + 磨床设备</b>（真正卡脖子在"能不能稳定量产"，不在能不能做出样品）</li></ul>
+        </li>
+        <li class="lvl2">滚珠丝杠/微型丝杠 — 相对成熟，国产基础更好，确定性偏高、弹性偏低</li>
+      </ul>
+    </li>
+    <li class="lvl1">力/触觉传感器（VLA 下一瓶颈的"触觉神经"）
+      <ul>
+        <li class="lvl2">六维力传感器 — 手腕/脚踝，单机 4 个；应变片 vs MEMS 路线；蓝点触控人形市占≈62%
+          <ul><li class="lvl3">卡位点：<b>高精度标定 + 抗过载 + 微型化</b>；边缘计算集成</li></ul>
+        </li>
+        <li class="lvl2">触觉/电子皮肤 — 指尖阵列，路线最未定、想象空间最大、也最不确定</li>
+      </ul>
+    </li>
+    <li class="lvl1">大脑（具身智能模型 · 利润高地但 A 股映射弱）
+      <ul>
+        <li class="lvl2">VLA（视觉-语言-动作） — 2026 在真机泛化/长程/接触任务"集体撞墙"
+          <ul><li class="lvl3">卡位点：<b>真机轨迹数据集</b>（AgiBot World、600 万轨迹级数据）——数据是护城河</li></ul>
+        </li>
+        <li class="lvl2">世界模型 — "在想象中做 RL"新范式（Genie/GAIA 系），与 VLA 之争未定</li>
+      </ul>
+    </li>
+    <li class="lvl1">一体化关节/执行器总成（"卖铲子"最确定的集成层）
+      <ul>
+        <li class="lvl2">旋转/直线执行器 — 电机+减速器/丝杠+编码器+力控 打包，特斯拉链认证壁垒
+          <ul><li class="lvl3">卡位点：<b>总成集成 Know-how + 良率 + 客户认证</b>（拓普直线执行器良率 99.2%）</li></ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<!-- 阶段4 标的映射 -->
+<h2 class="sec">四、产业标的（逻辑映射，非投资建议）</h2>
+<div class="sub">以下为各环节代表性公司的逻辑映射与跟踪框架，<b>非投资建议</b>；纯度=机器人业务占比，多数公司机器人仍是"期权"而非当期利润。</div>
+<div class="card">
+  <table>
+    <tr><th>环节</th><th>角色</th><th>标的(代码)</th><th>主营/纯度</th><th>地位/市占</th><th>核心逻辑</th><th>催化剂</th><th>估值锚(定性)</th><th>风险</th></tr>
+    <tr>
+      <td>谐波减速器</td><td>龙头</td><td>绿的谐波(688017)</td><td>谐波减速器+机电一体化；机器人 25Q1 收入≈30%</td>
+      <td>国产龙头,全球≈15%</td><td>特斯拉链+国产替代;2026 机器人收入或&gt;50%</td><td>Optimus 定点/放量</td><td>估值处历史高位区间(❓无一手分位)</td><td>毛利下滑、价格战</td>
+    </tr>
+    <tr>
+      <td>执行器/热管理</td><td>龙头</td><td>三花智控(002050)</td><td>制冷+汽零+机器人执行器;机器人为期权</td>
+      <td>Optimus 一级供应商,单机≈2.8万</td><td>热管理基本盘稳,机器人弹性大</td><td>Optimus 量产订单落地</td><td>2025 PE≈37x;机器人段隐含≈60x(机构口径)</td><td>预期已 price in</td>
+    </tr>
+    <tr>
+      <td>直线执行器</td><td>龙头</td><td>拓普集团(601689)</td><td>汽零(特斯拉占 35-40%)+旋转/直线执行器</td>
+      <td>Optimus 执行器核心供应商,良率 99.2%</td><td>汽零+机器人双轮;墨西哥厂扩产</td><td>Optimus 定点、产能投放</td><td>估值含机器人预期(❓无一手PEG)</td><td>特斯拉单一客户依赖</td>
+    </tr>
+    <tr>
+      <td>电机/伺服</td><td>龙头</td><td>汇川技术(300124)</td><td>伺服/PLC/电机三大件本土龙头</td>
+      <td>伺服市占≈28%,无框电机领先</td><td>驱控一体方案,国产替代&lt;30% 空间大</td><td>驱控一体定点</td><td>工业基本盘+机器人期权</td><td>机器人收入占比仍低</td>
+    </tr>
+    <tr>
+      <td>丝杠</td><td>弹性</td><td>五洲新春/恒立液压/北特科技(等)</td><td>轴承/液压/汽零切入丝杠</td>
+      <td>国产从 0→1,格局未定</td><td>价值量最高环节国产替代弹性</td><td>量产良率突破、定点</td><td>估值弹性大、波动大</td><td>良率/量产不及预期</td>
+    </tr>
+    <tr>
+      <td>力/触觉传感器</td><td>弹性/隐形冠军</td><td>柯力传感/东华测试;蓝点触控(未上市)</td><td>称重/测试仪器切入六维力</td>
+      <td>蓝点人形市占≈62%(未上市)</td><td>触觉是 VLA 瓶颈,国产替代外资</td><td>大规模量产订单</td><td>A 股纯标的少(❓)</td><td>路线未定、纯度低</td>
+    </tr>
+    <tr>
+      <td>灵巧手/微电机</td><td>弹性</td><td>兆威机电/鸣志电器(等)</td><td>微型传动/空心杯电机</td>
+      <td>灵巧手总成/微电机供应</td><td>价值量占比抬升</td><td>灵巧手定点</td><td>题材弹性</td><td>技术路线切换</td>
+    </tr>
+    <tr>
+      <td>本体总成</td><td>整机(一级)</td><td>宇树(688-,科创板IPO受理)/优必选(9880.HK)/智元(借壳)</td><td>整机制造</td>
+      <td>2025 出货:智元5168/宇树4200+/优必选1000</td><td>品牌+场景+数据闭环</td><td>IPO、订单、量产</td><td>一级/次新,估值高波动大</td><td>组装利润薄、烧钱</td>
+    </tr>
+    <tr>
+      <td>大脑/算力(海外定位)</td><td>价值高地</td><td>英伟达(NVDA)/特斯拉(TSLA)</td><td>算力+Isaac 仿真 / Optimus+FSD</td>
+      <td>算力与大脑事实标准</td><td>拿走产业最高利润</td><td>GTC/Optimus 里程碑</td><td>海外高估值</td><td>A 股无法直接映射</td>
+    </tr>
+  </table>
+  <div class="src">标的为产业链定位示例，非推荐。代码/占比以公司公告与 Wind 一手数据为准；次新/未上市标的信息更新快，务必核实最新状态。</div>
+</div>
+
+<!-- 阶段5 投资综合 -->
+<h2 class="sec">五、投资机会综合</h2>
+
+<div class="card">
+  <b>估值与赔率</b>
+  <div class="sub">三高解决"是不是好生意"，本节解决"现在是不是好价格"。<b>不给目标价/买卖建议，只呈现估值位置与赔率。</b></div>
+  <div style="display:grid;grid-template-columns:60px 1fr 1fr;grid-template-rows:auto 110px 110px;gap:6px;margin:14px 0">
+    <div></div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">低估值</div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">高估值</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">高价值</div>
+    <div style="background:rgba(34,195,154,.15);border:1px solid var(--h5);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h5)">重点机会（罕见）</b><br>本板块几乎无"高价值+低估值"标的；<br>相对最可能出现在<b>丝杠/传感器早期未完全 price in 的隐形冠军</b>（需量产催化兑现）。</div>
+    <div style="background:rgba(255,180,84,.12);border:1px solid var(--h2);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h2)">好公司贵价格（当前主流）</b><br>● 绿的谐波 ● 三花智控<br>● 拓普集团 ● 汇川技术<br><span class="src">好生意但赔率不足/需回调、需业绩兑现</span></div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">低价值</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">价值陷阱嫌疑<br>● 纯组装/贴牌本体厂<br><span class="src">利润薄+高估值,警惕</span></div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">回避<br>● 蹭概念、无核心件、无订单的"买办式"组装<br><span class="src">2026 去伪存真首当其冲</span></div>
+  </div>
+  <table>
+    <tr><th>标的</th><th>PE(TTM)</th><th>PE分位(5Y)</th><th>PB / 分位</th><th>PEG(东财)</th><th>隐含预期 vs 判断</th><th>赔率结论</th></tr>
+    <tr><td>绿的谐波(688017)</td><td>654</td><td><span class="chk chk-warn">100%</span></td><td>25.1 / <span class="chk chk-warn">100%</span></td><td>3.94</td><td><span class="chk chk-warn">负预期差(全透支)</span></td><td>高胜率·赔率严重不足</td></tr>
+    <tr><td>三花智控(002050)</td><td>50.4</td><td><span class="chk chk-warn">81%</span></td><td>6.3 / 53%</td><td>1.61</td><td><span class="chk chk-warn">机器人预期已含</span></td><td>高胜率·低赔率(贵而稳)</td></tr>
+    <tr><td>汇川技术(300124)</td><td>41.2</td><td>60%</td><td>5.4 / <span class="chk chk-low">9%</span></td><td>2.37</td><td><span class="chk chk-low">PB处历史低位</span></td><td>高胜率·中赔率(相对稳)</td></tr>
+    <tr><td>拓普集团(601689)</td><td>39.2</td><td><span class="chk chk-low">46%</span></td><td>4.4 / <span class="chk chk-low">30%</span></td><td><span class="chk chk-na">-5.2 ⚠️失真</span></td><td><span class="chk chk-ok">分位相对不高</span></td><td>中高胜率·中赔率</td></tr>
+  </table>
+  <div class="src"><b>✅ 估值分位为一手数据</b>：PE/PB/PS 分位由 akshare（东方财富日频序列）实测计算，取数日 2026-07-03、近 5 年（约 1210 交易日）。<b>PEG 为东财口径</b>：拓普 PEG=-5.2 因净利下滑而失真（已标 ⚠️），不可盲信；其余 PEG 仅供参考。<br><b>关键读数：绿的谐波 PE/PB 双双 100% 历史分位（估值顶到天花板，因机器人预期把利润打薄）；三花 PE 81% 分位也偏贵；汇川 PB 仅 9% 分位相对最健康。</b>整体印证：<b>板块估值已大幅透支，好行业 ≠ 好价格。</b>（复现命令：<code>python assets/fetch_valuation.py 688017 002050 601689 300124 --md</code>）</div>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 1：卡脖子硬件国产替代（丝杠 / 力·触觉传感器）</div>
+  <p>价值量最高、国产化率最低（丝杠≈19%、六维力外资≈68%）、壁垒最硬的两个环节，是 A 股最纯正的 α 来源——国产从 0→1 的弹性远大于整机。</p>
+  <p><span class="badge b-up">驱动假设</span> Optimus/国产整机 2026 进入小批量量产 + 国产厂商量产良率突破 + 降本诉求逼迫供应链国产化。</p>
+  <p><span class="badge b-warn">证伪条件</span> 2026 全年头部整机实际出货 &lt; 2 万台；或国产丝杠良率迟迟不过关、定点仍给海外。</p>
+  <p class="src">相关环节/标的：丝杠（五洲新春/恒立/北特）、传感器（柯力/东华/蓝点[未上市]）。</p>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 2：Optimus 量产弹性（执行器总成 / 热管理 / 减速器）</div>
+  <p>特斯拉"核心自研 + 硬件外包"，中国供应链承接精密机械制造。已进入定点体系、有单机价值量的一级供应商（三花/拓普/绿的）是量产 β 最直接的受益者。</p>
+  <p><span class="badge b-up">驱动假设</span> Optimus V3 2026 年中投产、5–10 万台目标兑现，定点供应商放量。</p>
+  <p><span class="badge b-warn">证伪条件</span> Optimus 量产再度推迟（V3 发布/投产跳票）；或特斯拉将更多环节转为完全自研，绕过外部供应商。</p>
+  <p class="src">相关环节/标的：三花智控、拓普集团、绿的谐波、汇川技术。</p>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 3：大脑与数据（认知重、仓位轻）</div>
+  <p>产业真正的利润高地在大脑（模型/算力）与数据闭环，但被英伟达、特斯拉等海外主导，A 股缺乏纯正、可映射的高壁垒标的。<b>建议作为"看懂产业"的认知锚，而非 A 股重仓方向。</b></p>
+  <p><span class="badge b-up">驱动假设</span> VLA→世界模型路线跑通、真机数据集规模化，大脑泛化能力兑现拉动整机放量。</p>
+  <p><span class="badge b-warn">证伪条件</span> VLA/世界模型在真机泛化持续"撞墙"，量产场景迟迟无法从演示走向可靠作业。</p>
+  <p class="src">产业定位：英伟达(算力+Isaac)、特斯拉(FSD)、星海图/智元(国产大脑)。</p>
+</div>
+
+<div class="card bear">
+  <div class="k">🐻 空头视角 / Bear Case（反共识对冲）</div>
+  <div class="sub">强制切换立场——这条产业叙事可能错在哪。<b>共识温度：拥挤</b>（2025 已诞生 13 只翻倍股、VC/PE 最强风口、板块普涨）。</div>
+  <p><span class="badge b-bear">空头论据 1 · 需求证伪/量产跳票</span> 人形机器人商业化"演示强、落地弱"。Optimus 量产时间表已多次调整；2025 全球出货仅约 1.3 万台，离"百万级"极远。若 2026 目标（5–10 万台）大幅落空，整条量产逻辑的估值支撑崩塌。</p>
+  <p><span class="badge b-bear">空头论据 2 · 估值已完全 price in</span> 头部估值 2025 普涨 50%–100%，科创板泡沫化；导入期 PE/PS 失真。板块已从"鸡犬升天"切向"去伪存真"——113 只成分股中 <b>37 家（32.7%）2025 营收下滑</b>，Beta 退潮后多数标的将杀估值。</p>
+  <p><span class="badge b-bear">空头论据 3 · 降本压价 + 自研绕过</span> 整机厂目标把单机压到 2 万美元以下，降本压力层层传导，<b>上游龙头毛利已现下滑（绿的谐波 2025H1 毛利率 -5.62pct）</b>；同时特斯拉"执行器全自研"，本体厂自研核心件可能<b>绕过外部供应商</b>，使"卖铲子"逻辑打折。</p>
+  <p><span class="badge b-bear">最脆弱一环</span> <b>需求（量产节奏）× 价格（降本压毛利）</b>——不是"能不能做"，而是"卖不卖得动、赚不赚得到钱"。</p>
+  <p><span class="badge b-bear">一句话证伪信号</span> 出现任一即应判定主线证伪并重估：<b>① Optimus 2026 全年出货 &lt; 2 万台；② 上游核心件龙头（如绿的谐波）机器人业务毛利率连续两季 &lt; 30%；③ 头部整机厂将丝杠/执行器等核心件转为完全自研。</b></p>
+</div>
+
+<!-- 阶段6 风险跟踪 + 尽调 -->
+<h2 class="sec">六、风险与跟踪指标</h2>
+<div class="grid2">
+  <div class="card"><b>主要风险</b>
+    <ul>
+      <li><b>量产节奏</b>：Optimus/国产整机量产反复推迟。</li>
+      <li><b>估值透支</b>：板块已涨 50–100%，Beta 退潮杀估值。</li>
+      <li><b>价格战/毛利下滑</b>：降本压价，龙头毛利已现回落。</li>
+      <li><b>技术路线</b>：VLA vs 世界模型、丝杠/灵巧手路线未定。</li>
+      <li><b>自研绕过</b>：整机厂自研核心件削弱供应商价值。</li>
+    </ul>
+  </div>
+  <div class="card"><b>需持续跟踪（月度/季度）</b>
+    <ul>
+      <li><b>季度</b>：特斯拉 Optimus 里程碑（V3 发布/投产/出货指引）。</li>
+      <li><b>季度</b>：智元/宇树/优必选 出货与在手订单金额。</li>
+      <li><b>季度</b>：龙头机器人业务收入占比与<b>毛利率环比</b>。</li>
+      <li><b>事件</b>：核心件定点公告（谁进了谁的供应链）。</li>
+      <li><b>事件</b>：宇树科创板 IPO 进展、板块业绩分化情况。</li>
+      <li><b>技术</b>：VLA/世界模型真机泛化是否突破"撞墙"。</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="sec">七、尽调追问清单（下一步该做什么）</h2>
+<div class="sub">本报告是认知脚手架，不是结论。以下是最该动手核实与追问的点。</div>
+<div class="grid2">
+  <div class="card">
+    <b>① 需一手核实的低置信数字（标 ❓ 或来源较弱）</b>
+    <ul>
+      <li><s>历史估值分位</s> <b>已用 akshare 一手补全</b>（见五节表）；仍需核实的是<b>未来净利一致预期（算真 PEG 用）、机器人业务净利拆分</b>——需 Wind/券商预期，接口给不了。</li>
+      <li>丝杠国产厂商的<b>量产良率、单价、定点客户</b>——决定弹性能否兑现，公开信息极少。</li>
+      <li>价值量占比数字（丝杠 18%/灵巧手 14–32% 等）口径差异大，随量产成本变化，需以最新 BOM 拆解为准。</li>
+      <li>力/触觉传感器龙头多<b>未上市</b>（蓝点触控），A 股纯标的稀缺，映射需谨慎。</li>
+    </ul>
+    <b>② 一旦证伪结论就翻的关键假设</b>
+    <ul>
+      <li><b>2026 是"量产元年"</b>——若整机出货大幅低于 2 万台，整份报告的成长性地基动摇。</li>
+      <li><b>核心件外购</b>——若特斯拉/头部整机转向核心件全自研，"卖铲子"主线需重估。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>③ 建议下一步追问的 3–5 个问题</b>
+    <ul>
+      <li>目标标的<b>最新在手订单金额、定点客户、机器人业务收入/毛利占比</b>是多少？（去最新季报/公告核）</li>
+      <li>它的机器人收入是<b>真出货</b>还是"送样/试制"？单价与放量节奏？</li>
+      <li>国产丝杠/六维力的<b>量产良率</b>到了什么水平？定点给了国产还是海外？</li>
+      <li>当前 PE/PS 在过去 3–5 年的<b>真实分位</b>是多少？（行情终端一手数据）</li>
+      <li>这条技术路线是否出现<b>被替代的早期信号</b>（如世界模型对 VLA、丝杠对减速器的替代）？</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <b>📌 一句话总结</b>
+  <p>物理 AI/具身智能是<b>方向确定、节奏不确定、估值已提前透支</b>的成长赛道。产业上"钱在两端"——<b>大脑（海外拿走）+ 上游卡脖子硬件（A 股 α）</b>，本体组装利润最薄。A 股最纯正的机会在<b>丝杠、力/触觉传感器的国产替代</b>与<b>Optimus 量产弹性</b>；但当前是"好行业撞上贵价格 + 拥挤共识"，2026 进入 Beta 转 Alpha 的去伪存真期，<b>验证量产兑现与毛利趋势比追逐概念更重要</b>。</p>
+</div>
+
+<!--glossary-section-->
+<h2 class="sec">八、名词解释（新手友好）</h2>
+<div class="sub">本报告用到的金融 / 产业黑话，一句话说明白。</div>
+<div class="card">
+  <table>
+    <tr><th>术语</th><th>一句话解释</th></tr>
+    <tr><td><b>Beta（贝塔）</b></td><td>板块/大盘整体涨跌带来的收益，"水涨船高"，不分个股好坏。</td></tr>
+    <tr><td><b>Alpha（阿尔法）</b></td><td>跑赢板块平均的超额收益，靠选对环节/个股赚的"真本事"。报告说"Beta 转 Alpha"＝从普涨切换到"只有真优质标的才涨"。</td></tr>
+    <tr><td><b>卡位点</b></td><td>一条赛道里决定"谁卡住利润、别人绕不过去"的具体控制点（某道工序/资质/数据/独家客户）。</td></tr>
+    <tr><td><b>卖铲子</b></td><td>淘金热里"卖铲子"稳赚——不赌终端谁赢，只供应上游核心部件的策略。</td></tr>
+    <tr><td><b>微笑曲线</b></td><td>产业链利润"两端高、中间低"：研发/品牌高，组装/制造低。</td></tr>
+    <tr><td><b>三高</b></td><td>本报告打分维度：高增长 / 高利润 / 高壁垒，各 1–5 分。</td></tr>
+    <tr><td><b>价值迁移（↑迁入/↓迁出）</b></td><td>未来 1–3 年利润/价值往哪个环节流动。迁入＝还会变更好；迁出＝可能已见顶。</td></tr>
+    <tr><td><b>price in（已 price in）</b></td><td>市场已把某个利好/预期反映进现价，再兑现也难再涨。</td></tr>
+    <tr><td><b>预期差（正/负）</b></td><td>你的判断 vs 市场已定价的差。市场预期偏低＝正预期差(机会)；偏高＝负预期差(易杀估值)。</td></tr>
+    <tr><td><b>赔率 × 胜率</b></td><td>赔率＝能赚多少÷可能亏多少；胜率＝判断成真的概率。好机会两者都要看。</td></tr>
+    <tr><td><b>Bear Case / 空头视角</b></td><td>故意站"看跌"立场，专门论证这套逻辑可能错在哪，对冲一味看多。</td></tr>
+    <tr><td><b>证伪条件 / 信号</b></td><td>出现什么具体、可量化的数据，就说明判断错了、该退出。</td></tr>
+    <tr><td><b>PE / PB / PS</b></td><td>市盈率(价÷盈利) / 市净率(价÷净资产) / 市销率(价÷营收)，都是"贵不贵"的尺子，越高越贵。</td></tr>
+    <tr><td><b>PE(TTM)</b></td><td>TTM＝滚动最近 12 个月；PE(TTM) 是用最近一年真实盈利算的市盈率。</td></tr>
+    <tr><td><b>PEG</b></td><td>PE ÷ 盈利增速。&lt;1 偏便宜、&gt;2 偏贵；盈利下滑时会变负值、失真不可用。</td></tr>
+    <tr><td><b>历史估值分位</b></td><td>当前估值在过去 5 年里的百分位。100%＝历史最贵，10%＝历史很便宜。</td></tr>
+    <tr><td><b>毛利率 / 净利率</b></td><td>赚钱能力：(收入-成本)÷收入 / 净利润÷收入，越高越能赚。</td></tr>
+    <tr><td><b>ROIC / ROE</b></td><td>投入资本回报率 / 净资产收益率，衡量"用钱赚钱"的效率。</td></tr>
+    <tr><td><b>CR3 / CR5</b></td><td>前 3 / 前 5 大公司市占率之和，越高＝行业越集中、越易出龙头。</td></tr>
+    <tr><td><b>渗透率 / S 曲线</b></td><td>新产品被采用的比例；S 曲线"陡升段"＝放量最快、增长最猛的阶段。</td></tr>
+    <tr><td><b>卡脖子 / 国产替代</b></td><td>被海外垄断、进口依赖高的环节；国产替代＝国产厂商抢占其份额（A 股常见 α 来源）。</td></tr>
+    <tr><td><b>隐形冠军</b></td><td>细分领域市占极高、但大众没听过的龙头。</td></tr>
+  </table>
+</div>
+
+<div class="disc">
+  免责声明：本报告由 AI 基于公开信息与联网检索生成，仅用于产业研究与学习参考，<b>不构成任何投资建议</b>。
+  数据可能存在滞后或误差（尤其价值量占比、市占率、估值等随行业快速变化），标的均为产业逻辑映射示例而非推荐。
+  投资有风险，决策需结合个人风险承受能力并进行独立尽职调查。
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!--
+  行业分析报告模板 / Industry Analysis Report Template
+  用法：复制本骨架，替换 {{占位符}} 与各 section 内容，删除本注释。
+  所有样式内联，离线可打开、可截图。组件均为纯 HTML+CSS+SVG，无外部依赖。
+  组件清单：① 产业链横向图谱（价值量热力上色）② 三高热力矩阵 ③ 多环节对比雷达图（SVG）
+            ④ 细分下钻树 ⑤ 标的映射表 ⑥ 投资主线卡片 ⑦ 风险/跟踪 ⑧ 名词解释表（新手友好）⑨ 免责声明
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{行业名}}行业分析报告</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#171c24; --card2:#1f2630; --line:#2a313c;
+    --txt:#e6e9ee; --mut:#9aa4b2; --acc:#4f9cf9; --acc2:#22c39a;
+    --h1:#ff6b6b; --h2:#ffb454; --h3:#ffe066; --h4:#a0d995; --h5:#22c39a; /* 1低→5高 价值热力 */
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+  header.rep{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:8px}
+  header.rep h1{font-size:30px;margin:0 0 8px}
+  header.rep .meta{color:var(--mut);font-size:13px}
+  .tag{display:inline-block;background:var(--card2);color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px}
+  h2.sec{font-size:21px;margin:48px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin:-8px 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;background:var(--card2)}
+  .src{color:var(--mut);font-size:11.5px}
+  /* —— 产业链横向图谱 —— */
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .chain .seg-title{font-weight:700;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px;color:#0e1116}
+  .chain .up{background:#4f9cf9}.chain .mid{background:#9aa4b2}.chain .down{background:#22c39a}
+  .node{border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);font-size:13px}
+  .node b{display:block;font-size:13.5px}
+  .node small{color:#0e1116;opacity:.8}
+  /* 价值热力：data-heat=1..5 */
+  .node[data-heat="1"]{background:var(--h1)}.node[data-heat="2"]{background:var(--h2)}
+  .node[data-heat="3"]{background:var(--h3)}.node[data-heat="4"]{background:var(--h4)}
+  .node[data-heat="5"]{background:var(--h5)}
+  .node[data-heat] b,.node[data-heat] span{color:#0e1116}
+  .legend{font-size:12px;color:var(--mut);margin-top:10px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 12px}
+  /* —— 三高热力矩阵 —— */
+  .heat td.cell{text-align:center;font-weight:700;color:#0e1116;width:90px}
+  .heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}
+  .heat .v4{background:var(--h4)}.heat .v5{background:var(--h5)}
+  .heat .total{font-weight:800}
+  .star{color:#ffe066}
+  /* —— 财务校验状态 chip —— */
+  .chk{font-size:11.5px;border-radius:6px;padding:1px 8px;white-space:nowrap;border:1px solid}
+  .chk-ok{color:var(--h5);border-color:var(--h5)}      /* ✅ 一致 */
+  .chk-warn{color:var(--h2);border-color:var(--h2)}    /* ⚠️ 偏乐观 */
+  .chk-low{color:var(--acc);border-color:var(--acc)}   /* 🔵 偏保守 */
+  .chk-na{color:var(--mut);border-color:var(--mut)}    /* ❓ 数据缺失 */
+  /* —— 下钻树 —— */
+  .tree{list-style:none;padding-left:0}
+  .tree li{margin:6px 0}
+  .tree .lvl1{font-weight:700;color:var(--acc2)}
+  .tree ul{list-style:none;border-left:2px solid var(--line);margin-left:10px;padding-left:18px}
+  .tree .lvl2{color:var(--txt)} .tree .lvl3{color:var(--mut);font-size:13px}
+  /* —— 投资主线卡片 —— */
+  .thesis{border-left:4px solid var(--acc2)}
+  .thesis .k{color:var(--acc2);font-weight:700}
+  /* —— 空头 / Bear Case 卡片 —— */
+  .bear{border-left:4px solid var(--h1)}
+  .bear .k{color:var(--h1);font-weight:700}
+  .b-bear{color:var(--h1);border-color:var(--h1)}
+  /* —— 数据置信度总评条 —— */
+  .conf{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0 4px;font-size:13px;color:var(--mut)}
+  .conf b{color:var(--txt)}
+  .badge{font-size:11px;border-radius:6px;padding:1px 8px;border:1px solid var(--line)}
+  .b-up{color:var(--h5);border-color:var(--h5)} .b-warn{color:var(--h2);border-color:var(--h2)}
+  .disc{color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ① 报告头 -->
+<header class="rep">
+  <h1>{{行业名}}行业分析报告</h1>
+  <div style="margin:10px 0">
+    <span class="tag">{{周期位置：成长期/成熟期/出清期}}</span>
+    <span class="tag">A股为主</span>
+    <span class="tag">{{核心一句话定位}}</span>
+  </div>
+  <div class="meta">生成日期：{{YYYY-MM-DD}} ｜ 数据来源：联网检索，详见各处标注 ｜ 仅供研究参考，非投资建议</div>
+</header>
+
+<!-- 数据置信度总评：让用户一眼知道这份报告能信几分 -->
+<div class="conf">
+  <b>数据置信度总评：</b>核心数据 <b>{{X}}</b> 项已联网核验（标来源）｜ <b>{{Y}}</b> 项为模型结构化定性判断 ｜ <b>{{Z}}</b> 项数据缺失/待补全（见文末尽调清单）。
+  估值分位/PEG 等预测类数字请以一手数据核实为准。
+</div>
+
+<!-- 摘要 -->
+<div class="card">
+  <b>核心结论速览</b>
+  <ul>
+    <li>产业概况：{{1句}}</li>
+    <li>高价值环节：{{2-3个，及原因}}</li>
+    <li>投资主线：{{1-3条}}</li>
+    <li>主要风险：{{1-2条}}</li>
+  </ul>
+</div>
+
+<!-- ② 产业链图谱 -->
+<h2 class="sec">一、产业链图谱</h2>
+<div class="sub">颜色越绿=价值量/价值捕获越高（热力 1低→5高）。来源：{{机构/年份}}</div>
+<div class="card">
+  <div class="chain">
+    <div>
+      <div class="seg-title up">上游</div>
+      <div class="node" data-heat="5"><b>{{环节名}}</b><span>{{典型玩家}} ｜ 价值量{{%}} ｜ 国产化{{%}}</span></div>
+      <div class="node" data-heat="3"><b>{{环节名}}</b><span>{{...}}</span></div>
+    </div>
+    <div>
+      <div class="seg-title mid">中游</div>
+      <div class="node" data-heat="2"><b>{{环节名}}</b><span>{{...}}</span></div>
+    </div>
+    <div>
+      <div class="seg-title down">下游</div>
+      <div class="node" data-heat="4"><b>{{应用/渠道}}</b><span>{{...}}</span></div>
+    </div>
+  </div>
+  <div class="legend">价值热力：
+    <i style="background:var(--h1)"></i>1 <i style="background:var(--h2)"></i>2
+    <i style="background:var(--h3)"></i>3 <i style="background:var(--h4)"></i>4
+    <i style="background:var(--h5)"></i>5
+  </div>
+</div>
+
+<!-- ③ 三高热力矩阵 -->
+<h2 class="sec">二、高价值方向识别（高增长 / 高利润 / 高壁垒）</h2>
+<div class="sub">每维 1–5 分，总分 15。打分细则见方法论。价值迁移=未来1–3年价值流向(↑迁入/↓迁出/→稳定)。★=高价值象限；⭐=高价值且迁入(最优)</div>
+<div class="card">
+  <table class="heat">
+    <tr><th>环节</th><th>高增长</th><th>高利润</th><th>高壁垒</th><th>总分</th><th>价值量</th><th>国产化率</th><th>价值迁移</th><th></th></tr>
+    <tr>
+      <td>{{环节名}}</td>
+      <td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v5">5</td>
+      <td class="total">14</td><td>{{高}}</td><td>{{30%}}</td>
+      <td title="{{驱动：技术路线/一体化/替代/议价权}}">↑迁入</td><td class="star">⭐</td>
+    </tr>
+    <tr>
+      <td>{{环节名}}</td>
+      <td class="cell v4">4</td><td class="cell v5">5</td><td class="cell v4">4</td>
+      <td class="total">13</td><td>{{高}}</td><td>{{—}}</td>
+      <td title="{{已被 price in，价值向下游/新路线转移}}">↓迁出</td><td class="star">★</td>
+    </tr>
+    <tr>
+      <td>{{环节名}}</td>
+      <td class="cell v3">3</td><td class="cell v2">2</td><td class="cell v2">2</td>
+      <td class="total">7</td><td>{{中}}</td><td>{{80%}}</td>
+      <td title="{{}}">→稳定</td><td></td>
+    </tr>
+  </table>
+  <div class="src">价值迁移为前瞻定性判断；重大迁移假设应在下方 Bear Case 给出对应证伪信号。</div>
+</div>
+
+<!-- 财务交叉校验表：主观三高分 vs 客观财务锚（详见 methodology 第六节） -->
+<div class="card">
+  <b>财务交叉校验</b>
+  <div class="sub">主观分须有数据兜底。状态：✅一致 ⚠️偏乐观(分>数据，须前瞻理由否则下修) 🔵偏保守 ❓数据缺失</div>
+  <table>
+    <tr><th>环节</th><th>增长锚<br><span class="src">营收CAGR/增速</span></th><th>利润锚<br><span class="src">毛利率/ROIC</span></th><th>壁垒锚<br><span class="src">CR/市占/研发率</span></th><th>校验状态</th><th>说明(背离则写前瞻理由)</th></tr>
+    <tr>
+      <td>{{环节名}}</td>
+      <td>{{如 营收 CAGR 35%（2023-25）}}<div class="src">来源·时间</div></td>
+      <td>{{如 毛利率 28% / ROE 18%}}<div class="src">来源·时间</div></td>
+      <td>{{如 CR3 70%、市占40%、研发率8%}}<div class="src">来源·时间</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>{{数据印证三高判断}}</td>
+    </tr>
+    <tr>
+      <td>{{环节名}}</td>
+      <td>{{增速尚低}}</td><td>{{毛利偏薄}}</td><td>{{格局未定}}</td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td>{{打分高于当前财务表现，因 在手订单/产能/渗透率拐点 支撑；否则应下修}}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 雷达图：多环节三高对比（纯 SVG，三轴：增长/利润/壁垒）
+     单个环节用雷达图没有增量信息（矩阵已有数字）——本图价值在【横向比较不同环节的形状差异】，
+     故强制叠加 2–5 个高价值环节。坐标公式：中心(150,140)、每分 20px、外圈=5分。
+       增长(顶,-90°): x=150,            y=140-20*g
+       利润(右下,30°): x=150+17.32*p,   y=140+10*p
+       壁垒(左下,150°):x=150-17.32*b,   y=140+10*b
+     复制 <polygon> 并按各环节 (增长,利润,壁垒) 重算三点即可。
+     ⚠️易错点：每个顶点的 x 和 y 必须来自【同一个分值】。如壁垒=4 → (80.7,180)；
+       别把壁垒=5 的 x(63.4) 和壁垒=4 的 y(180) 混用，否则该顶点会歪出去、画面像有乱线。
+       速查(壁垒轴): 1→(132.7,150) 2→(115.4,160) 3→(98,170) 4→(80.7,180) 5→(63.4,190)。 -->
+<div class="card">
+  <b>高价值环节三高对比雷达</b>
+  <div class="sub">三轴：增长 / 利润 / 壁垒，外圈=5分。叠加多个环节，看形状差异（谁在哪根轴强）。</div>
+  <svg width="320" height="300" viewBox="0 0 320 300">
+    <g stroke="#2a313c" fill="none">
+      <polygon points="150,40 236.6,190 63.4,190"/>
+      <polygon points="150,65 215,177.5 85,177.5"/>
+      <polygon points="150,90 193.3,165 106.7,165"/>
+    </g>
+    <line x1="150" y1="140" x2="150" y2="40" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="236.6" y2="190" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="63.4" y2="190" stroke="#2a313c"/>
+    <text x="150" y="30" fill="#9aa4b2" font-size="12" text-anchor="middle">增长</text>
+    <text x="250" y="200" fill="#9aa4b2" font-size="12">利润</text>
+    <text x="20" y="200" fill="#9aa4b2" font-size="12">壁垒</text>
+    <!-- 环节A 5/4/5 --><polygon points="150,40 219.3,180 63.4,190" fill="rgba(34,195,154,.20)" stroke="#22c39a" stroke-width="2"/>
+    <!-- 环节B 5/3/4 --><polygon points="150,40 202,170 80.7,180" fill="rgba(79,156,249,.15)" stroke="#4f9cf9" stroke-width="2"/>
+    <!-- 环节C 4/2/3 --><polygon points="150,60 184.6,160 98,170" fill="rgba(255,180,84,.12)" stroke="#ffb454" stroke-width="2"/>
+  </svg>
+  <div class="legend">
+    <i style="background:#22c39a"></i>{{环节A}}(5/4/5)
+    <i style="background:#4f9cf9"></i>{{环节B}}(5/3/4)
+    <i style="background:#ffb454"></i>{{环节C}}(4/2/3)
+  </div>
+</div>
+
+<!-- ④ 细分下钻树 -->
+<h2 class="sec">三、价值方向下探（细分赛道 / 卡位点）</h2>
+<div class="sub"><b>名词解释 · 卡位点</b>：一条赛道里真正决定"谁能卡住利润、别人绕不过去"的<b>具体控制点</b>（某道工序 / 资质 / 数据 / 独家客户）。<b>价值量</b>说明"钱在哪个环节"，<b>卡位点</b>说明"这钱最终被哪个具体能力拿走、能不能被别人抢走"——没有独占卡位点的环节（如纯组装）即便价值量大也赚不到钱。</div>
+<div class="card">
+  <ul class="tree">
+    <li class="lvl1">{{高价值环节}}
+      <ul>
+        <li class="lvl2">{{细分方向A}} — 格局：{{}}；确定性/弹性：{{}}
+          <ul><li class="lvl3">卡位点：{{技术路线/工艺/客户}}</li></ul>
+        </li>
+        <li class="lvl2">{{细分方向B}} — {{...}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<!-- ⑤ 标的映射表 -->
+<h2 class="sec">四、产业标的（逻辑映射，非投资建议）</h2>
+<div class="sub">以下为产业链各环节代表性公司的逻辑映射与跟踪框架，非投资建议。</div>
+<div class="card">
+  <table>
+    <tr><th>环节</th><th>角色</th><th>标的(代码)</th><th>主营/纯度</th><th>地位/市占</th><th>核心逻辑</th><th>催化剂</th><th>估值锚</th><th>风险</th></tr>
+    <tr>
+      <td>{{环节}}</td><td>龙头</td><td>{{名称(代码)}}</td><td>{{主营}}</td>
+      <td>{{CR/份额}}</td><td>{{为何高价值}}</td><td>{{6-12月催化}}</td><td>{{PE区间·位置}}</td><td>{{风险}}</td>
+    </tr>
+    <tr><td>{{环节}}</td><td>弹性</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+    <tr><td>{{环节}}</td><td>隐形冠军</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td><td>{{}}</td></tr>
+  </table>
+</div>
+
+<!-- ⑥ 投资主线卡片 -->
+<h2 class="sec">五、投资机会综合</h2>
+
+<!-- 估值与赔率：好行业≠好价格（详见 methodology 第七节） -->
+<div class="card">
+  <b>估值与赔率</b>
+  <div class="sub">三高解决"是不是好生意"，本节解决"现在是不是好价格"。不给目标价/买卖建议，只呈现估值位置与赔率。</div>
+  <!-- 价值 × 估值 四象限（纯 CSS 网格，标的落点用 ● 文字标注） -->
+  <div style="display:grid;grid-template-columns:60px 1fr 1fr;grid-template-rows:auto 90px 90px;gap:6px;margin:14px 0">
+    <div></div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">低估值</div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">高估值</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">高价值</div>
+    <div style="background:rgba(34,195,154,.15);border:1px solid var(--h5);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h5)">重点机会</b><br>● {{标的}}</div>
+    <div style="background:rgba(255,180,84,.12);border:1px solid var(--h2);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h2)">好公司贵价格</b><br>● {{标的}}（赔率不足/等回调）</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">低价值</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">价值陷阱嫌疑<br>● {{标的}}</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">回避<br>● {{标的}}</div>
+  </div>
+  <!-- 估值分位表 -->
+  <table>
+    <tr><th>标的</th><th>当前 PE/PB</th><th>历史分位</th><th>PEG</th><th>隐含预期 vs 判断</th><th>赔率结论</th></tr>
+    <tr><td>{{名称(代码)}}</td><td>{{30x}}</td><td>{{65%}}</td><td>{{0.9}}</td><td><span class="chk chk-ok">正预期差</span></td><td>{{高胜率·中赔率}}</td></tr>
+    <tr><td>{{名称(代码)}}</td><td>{{55x}}</td><td>{{90%}}</td><td>{{2.1}}</td><td><span class="chk chk-warn">负预期差</span></td><td>{{贵·赔率不足}}</td></tr>
+  </table>
+  <div class="src">估值用预测净利时注明预测年份与来源；分位为过去 3–5 年区间。</div>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 1：{{标题}}</div>
+  <p>{{逻辑 2-3 句}}</p>
+  <p><span class="badge b-up">驱动假设</span> {{什么成立这条线就成立}}</p>
+  <p><span class="badge b-warn">证伪条件</span> {{出现什么数据就该退出}}</p>
+  <p class="src">相关环节/标的：{{}}</p>
+</div>
+
+<!-- 空头 / Bear Case 卡片：反共识对冲，独立成卡，与多头等重（详见 methodology 第八节） -->
+<div class="card bear">
+  <div class="k">🐻 空头视角 / Bear Case</div>
+  <div class="sub">强制切换立场——这条主线可能错在哪。共识温度：{{冷门/升温/拥挤}}</div>
+  <p><span class="badge b-bear">空头论据 1</span> {{产能过剩/价格战/技术颠覆/政策退坡/需求证伪…具体到可观察变量}}</p>
+  <p><span class="badge b-bear">空头论据 2</span> {{}}</p>
+  <p><span class="badge b-bear">空头论据 3</span> {{}}</p>
+  <p><span class="badge b-bear">最脆弱一环</span> {{驱动假设里最可能先崩的环节：需求/格局/价格}}</p>
+  <p><span class="badge b-bear">一句话证伪信号</span> {{出现什么具体可量化数据即判定主线证伪：如 行业库存周转>X月 / 龙头毛利率连续两季<Y%}}</p>
+</div>
+
+<!-- ⑦ 风险与跟踪 -->
+<h2 class="sec">六、风险与跟踪指标</h2>
+<div class="grid2">
+  <div class="card"><b>主要风险</b><ul><li>{{周期/政策/技术路线/竞争}}</li></ul></div>
+  <div class="card"><b>需持续跟踪</b><ul><li>{{月度/季度看哪些数据}}</li></ul></div>
+</div>
+
+<!-- ⑧ 尽调 / 待验证清单：本 skill 最高价值、最低幻觉风险的输出 -->
+<h2 class="sec">七、尽调追问清单（下一步该做什么）</h2>
+<div class="sub">本报告是认知脚手架，不是结论。以下是最该动手核实与追问的点。</div>
+<div class="grid2">
+  <div class="card">
+    <b>① 需一手核实的低置信数字</b>
+    <ul>
+      <li>{{哪些数字标了 ❓ 或来源较弱，需去年报/Wind/一手渠道核实}}</li>
+    </ul>
+    <b>② 一旦证伪结论就翻的关键假设</b>
+    <ul>
+      <li>{{哪个假设是整份报告的地基，动摇则重估}}</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>③ 建议下一步追问的 3–5 个问题</b>
+    <ul>
+      <li>{{如：龙头最新在手订单/产能投放节奏？}}</li>
+      <li>{{如：这条技术路线是否有被替代的早期信号？}}</li>
+      <li>{{如：当前估值分位的一手数据是多少？}}</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ⑩ 名词解释（新手友好）：固定表，按本报告实际出现的术语增删即可 -->
+<h2 class="sec">名词解释（新手友好）</h2>
+<div class="sub">报告用到的金融 / 产业黑话，一句话说明白。按本报告实际用到的术语增删。</div>
+<div class="card">
+  <table>
+    <tr><th>术语</th><th>一句话解释</th></tr>
+    <tr><td><b>Beta（贝塔）</b></td><td>板块/大盘整体涨跌带来的收益，"水涨船高"，不分个股好坏。</td></tr>
+    <tr><td><b>Alpha（阿尔法）</b></td><td>跑赢板块平均的超额收益，靠选对环节/个股赚的"真本事"。</td></tr>
+    <tr><td><b>卡位点</b></td><td>一条赛道里决定"谁卡住利润、别人绕不过去"的具体控制点（工序/资质/数据/独家客户）。</td></tr>
+    <tr><td><b>卖铲子</b></td><td>不赌终端谁赢，只供应上游核心部件的稳赚策略。</td></tr>
+    <tr><td><b>微笑曲线</b></td><td>产业链利润"两端高、中间低"：研发/品牌高，组装/制造低。</td></tr>
+    <tr><td><b>三高</b></td><td>本报告打分维度：高增长 / 高利润 / 高壁垒，各 1–5 分。</td></tr>
+    <tr><td><b>价值迁移（↑迁入/↓迁出）</b></td><td>未来 1–3 年利润/价值往哪个环节流动。迁入＝还会变更好；迁出＝可能已见顶。</td></tr>
+    <tr><td><b>price in</b></td><td>市场已把某利好/预期反映进现价，再兑现也难再涨。</td></tr>
+    <tr><td><b>预期差（正/负）</b></td><td>你的判断 vs 市场已定价的差。市场预期偏低＝正预期差(机会)；偏高＝负预期差(易杀估值)。</td></tr>
+    <tr><td><b>赔率 × 胜率</b></td><td>赔率＝能赚多少÷可能亏多少；胜率＝判断成真的概率。</td></tr>
+    <tr><td><b>Bear Case / 空头视角</b></td><td>故意站"看跌"立场，论证这套逻辑可能错在哪。</td></tr>
+    <tr><td><b>证伪条件 / 信号</b></td><td>出现什么具体可量化数据，就说明判断错了、该退出。</td></tr>
+    <tr><td><b>PE / PB / PS</b></td><td>市盈率/市净率/市销率，都是"贵不贵"的尺子，越高越贵。</td></tr>
+    <tr><td><b>PE(TTM)</b></td><td>用最近滚动 12 个月真实盈利算的市盈率。</td></tr>
+    <tr><td><b>PEG</b></td><td>PE ÷ 盈利增速。&lt;1 偏便宜、&gt;2 偏贵；盈利下滑时变负值、失真。</td></tr>
+    <tr><td><b>历史估值分位</b></td><td>当前估值在过去 5 年里的百分位。100%＝历史最贵。</td></tr>
+    <tr><td><b>毛利率 / 净利率</b></td><td>(收入-成本)÷收入 / 净利润÷收入，越高越能赚。</td></tr>
+    <tr><td><b>ROIC / ROE</b></td><td>投入资本回报率 / 净资产收益率，衡量"用钱赚钱"效率。</td></tr>
+    <tr><td><b>CR3 / CR5</b></td><td>前 3 / 前 5 大公司市占率之和，越高越集中、越易出龙头。</td></tr>
+    <tr><td><b>渗透率 / S 曲线</b></td><td>新产品被采用的比例；S 曲线"陡升段"＝放量最快阶段。</td></tr>
+    <tr><td><b>卡脖子 / 国产替代</b></td><td>被海外垄断的进口依赖环节；国产替代＝国产厂商抢占份额。</td></tr>
+    <tr><td><b>隐形冠军</b></td><td>细分领域市占极高、但大众没听过的龙头。</td></tr>
+  </table>
+</div>
+
+<!-- ⑨ 免责声明 -->
+<div class="disc">
+  免责声明：本报告由 AI 基于公开信息与联网检索生成，仅用于产业研究与学习参考，<b>不构成任何投资建议</b>。
+  数据可能存在滞后或误差，标的均为产业逻辑映射示例而非推荐。投资有风险，决策需结合个人风险承受能力并进行独立尽职调查。
+</div>
+
+</div>
+</body>
+</html>

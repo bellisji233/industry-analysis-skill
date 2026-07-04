@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!-- 示例报告：储能行业（数据为示例性，正式使用时以联网检索的最新数据替换并标注来源） -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>储能行业分析报告</title>
+<style>
+  :root{--bg:#0e1116;--card:#171c24;--card2:#1f2630;--line:#2a313c;--txt:#e6e9ee;--mut:#9aa4b2;--acc:#4f9cf9;--acc2:#22c39a;--h1:#ff6b6b;--h2:#ffb454;--h3:#ffe066;--h4:#a0d995;--h5:#22c39a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+  header.rep{border-bottom:1px solid var(--line);padding-bottom:24px}
+  header.rep h1{font-size:30px;margin:0 0 8px}
+  header.rep .meta{color:var(--mut);font-size:13px}
+  .tag{display:inline-block;background:var(--card2);color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px}
+  h2.sec{font-size:21px;margin:48px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin:-8px 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;background:var(--card2)}
+  .src{color:var(--mut);font-size:11.5px}
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .chain .seg-title{font-weight:700;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px;color:#0e1116}
+  .chain .up{background:#4f9cf9}.chain .mid{background:#9aa4b2}.chain .down{background:#22c39a}
+  .node{border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);font-size:13px}
+  .node b{display:block;font-size:13.5px}
+  .node[data-heat="1"]{background:var(--h1)}.node[data-heat="2"]{background:var(--h2)}.node[data-heat="3"]{background:var(--h3)}.node[data-heat="4"]{background:var(--h4)}.node[data-heat="5"]{background:var(--h5)}
+  .node[data-heat] b,.node[data-heat] span{color:#0e1116}
+  .legend{font-size:12px;color:var(--mut);margin-top:10px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 12px}
+  .heat td.cell{text-align:center;font-weight:700;color:#0e1116;width:80px}
+  .heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}.heat .v4{background:var(--h4)}.heat .v5{background:var(--h5)}
+  .heat .total{font-weight:800}.star{color:#ffe066}
+  .chk{font-size:11.5px;border-radius:6px;padding:1px 8px;white-space:nowrap;border:1px solid}
+  .chk-ok{color:var(--h5);border-color:var(--h5)}.chk-warn{color:var(--h2);border-color:var(--h2)}
+  .chk-low{color:var(--acc);border-color:var(--acc)}.chk-na{color:var(--mut);border-color:var(--mut)}
+  .tree{list-style:none;padding-left:0}.tree li{margin:6px 0}
+  .tree .lvl1{font-weight:700;color:var(--acc2)}
+  .tree ul{list-style:none;border-left:2px solid var(--line);margin-left:10px;padding-left:18px}
+  .tree .lvl2{color:var(--txt)}.tree .lvl3{color:var(--mut);font-size:13px}
+  .thesis{border-left:4px solid var(--acc2)}.thesis .k{color:var(--acc2);font-weight:700}
+  .bear{border-left:4px solid var(--h1)}.bear .k{color:var(--h1);font-weight:700}
+  .badge{font-size:11px;border-radius:6px;padding:1px 8px;border:1px solid var(--line)}
+  .b-up{color:var(--h5);border-color:var(--h5)}.b-warn{color:var(--h2);border-color:var(--h2)}.b-bear{color:var(--h1);border-color:var(--h1)}
+  .conf{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0 4px;font-size:13px;color:var(--mut)}
+  .conf b{color:var(--txt)}
+  .disc{color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+</style>
+</head>
+<body>
+<!--SNAPSHOT-BANNER--><div style="background:#3a2a00;color:#ffe066;border-bottom:1px solid #ffb454;padding:8px 16px;font:13px/1.5 -apple-system,'PingFang SC','Microsoft YaHei',sans-serif;text-align:center">⚠️ 示例快照 · 仅演示报告格式—— 内含市场数据/估值为生成时点，会随时间过时，请勿据此做当前投资决策。</div>
+<div class="wrap">
+
+<header class="rep">
+  <h1>储能行业分析报告</h1>
+  <div style="margin:10px 0">
+    <span class="tag">成长期（渗透率陡升段）</span>
+    <span class="tag">A股为主</span>
+    <span class="tag">新型电力系统刚需 · 出海高景气</span>
+  </div>
+  <div class="meta">生成日期：2026-06-25 ｜ 数据来源：联网检索（示例性数据，正式报告请以最新来源替换）｜ 仅供研究参考，非投资建议</div>
+</header>
+
+<!-- 数据置信度总评 -->
+<div class="conf">
+  <b>数据置信度总评（示例）：</b>核心数据 <b>6</b> 项已联网核验（全球/国内装机、龙头营收增速、毛利率、市占率等，标来源）｜ <b>4</b> 项为模型结构化定性判断（三高打分、格局判断）｜ <b>3</b> 项数据缺失/待补全（PEG、历史估值分位、海外户储真实库存周期，见文末尽调清单）。
+  <b>提示：本例估值分位/PEG 因缺一手数据降级为定性区间，未编造具体数值。</b>
+</div>
+
+<div class="card">
+  <b>核心结论（TL;DR）</b>
+  <ul>
+    <li>产业概况：储能=新能源消纳与电网调节的刚需，全球装机维持高增速，国内大储 + 海外户储/工商储多点开花。</li>
+    <li>高价值环节：<b>电芯（规模+技术壁垒）</b>、<b>PCS/系统集成龙头（出海溢价）</b>、<b>温控/BMS 等高 ROE 隐形冠军</b>。</li>
+    <li>投资主线：① 出海溢价（海外大储/户储）；② 大圆柱/长时储能技术路线卡位；③ 系统降本驱动的渗透加速。</li>
+    <li>主要风险：价格战导致中游利润承压、海外政策（如关税/补贴）波动、技术路线分化。</li>
+  </ul>
+</div>
+
+<h2 class="sec">一、产业链图谱</h2>
+<div class="sub">颜色越绿=价值量/价值捕获越高（热力 1低→5高）。来源：行业研报示例</div>
+<div class="card">
+  <div class="chain">
+    <div>
+      <div class="seg-title up">上游</div>
+      <div class="node" data-heat="3"><b>正负极/电解液/隔膜</b><span>材料厂 ｜ 价值量高但价格战 ｜ 国产化高</span></div>
+      <div class="node" data-heat="2"><b>碳酸锂等资源</b><span>强周期 ｜ 景气回落 ｜ 标注周期位置</span></div>
+      <div class="node" data-heat="4"><b>电芯/电池设备</b><span>设备龙头 ｜ 中高壁垒</span></div>
+    </div>
+    <div>
+      <div class="seg-title mid">中游</div>
+      <div class="node" data-heat="5"><b>电芯制造</b><span>头部集中 ｜ 价值量最大 ｜ 规模+技术壁垒</span></div>
+      <div class="node" data-heat="4"><b>PCS / 储能变流器</b><span>电力电子壁垒 ｜ 出海溢价</span></div>
+      <div class="node" data-heat="4"><b>BMS / 温控</b><span>高 ROE 隐形冠军环节</span></div>
+      <div class="node" data-heat="2"><b>系统集成/PACK</b><span>同质化 ｜ 价格战 ｜ 但出海龙头有品牌溢价</span></div>
+    </div>
+    <div>
+      <div class="seg-title down">下游</div>
+      <div class="node" data-heat="4"><b>大储（电网/电源侧）</b><span>国内招标放量</span></div>
+      <div class="node" data-heat="5"><b>海外户储/工商储</b><span>高毛利 ｜ 品牌渠道壁垒</span></div>
+      <div class="node" data-heat="3"><b>运营/EPC</b><span>资产+服务</span></div>
+    </div>
+  </div>
+  <div class="legend">价值热力：<i style="background:var(--h1)"></i>1<i style="background:var(--h2)"></i>2<i style="background:var(--h3)"></i>3<i style="background:var(--h4)"></i>4<i style="background:var(--h5)"></i>5</div>
+</div>
+
+<h2 class="sec">二、高价值方向识别（高增长 / 高利润 / 高壁垒）</h2>
+<div class="sub">每维 1–5 分，总分 15。价值迁移=未来1–3年价值流向。★=高价值象限；⭐=高价值且迁入(最优)。</div>
+<div class="card">
+  <table class="heat">
+    <tr><th>环节</th><th>高增长</th><th>高利润</th><th>高壁垒</th><th>总分</th><th>价值量</th><th>国产化率</th><th>价值迁移</th><th></th></tr>
+    <tr><td>电芯制造</td><td class="cell v5">5</td><td class="cell v3">3</td><td class="cell v5">5</td><td class="total">13</td><td>高</td><td>高</td><td title="价格战+一体化，单环节溢价被压，利润向龙头/下游集中">↓迁出</td><td class="star">★</td></tr>
+    <tr><td>PCS/变流器</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="total">12</td><td>中</td><td>中</td><td title="电力电子壁垒稳定，出海溢价支撑">→稳定</td><td class="star">★</td></tr>
+    <tr><td>海外户储品牌</td><td class="cell v5">5</td><td class="cell v5">5</td><td class="cell v4">4</td><td class="total">14</td><td>中</td><td>—</td><td title="价值向品牌/渠道/运营右移(微笑曲线右端)；但可持续性存疑，见Bear Case">↑迁入</td><td class="star">⭐</td></tr>
+    <tr><td>温控/BMS</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="cell v3">3</td><td class="total">11</td><td>低</td><td>中</td><td title="液冷渗透率提升，价值随装机扩散迁入；隐形冠军型潜在预期差">↑迁入</td><td class="star">★</td></tr>
+    <tr><td>系统集成/PACK</td><td class="cell v4">4</td><td class="cell v2">2</td><td class="cell v2">2</td><td class="total">8</td><td>高</td><td>高</td><td title="同质化价格战，价值持续流出">↓迁出</td><td></td></tr>
+    <tr><td>碳酸锂资源</td><td class="cell v2">2</td><td class="cell v2">2</td><td class="cell v3">3</td><td class="total">7</td><td>高</td><td>中</td><td title="景气回落，利润从资源端回流中游龙头">↓迁出</td><td></td></tr>
+  </table>
+  <div class="src">价值迁移为前瞻定性判断。⭐(海外户储)=高价值且迁入(最优)；<b>电芯制造虽总分13高，但↓迁出——价格战+一体化压制，高分≠好机会，须结合估值看是否已被 price in</b>。温控为"中价值+迁入"的潜在预期差。</div>
+</div>
+
+<!-- 财务交叉校验表：主观三高分 vs 客观财务锚 -->
+<div class="card">
+  <b>财务交叉校验（示例）</b>
+  <div class="sub">主观分须有数据兜底。状态：✅一致 ⚠️偏乐观(分>数据，须前瞻理由否则下修) 🔵偏保守 ❓数据缺失</div>
+  <table>
+    <tr><th>环节</th><th>增长锚<br><span class="src">营收CAGR/增速</span></th><th>利润锚<br><span class="src">毛利率/ROIC</span></th><th>壁垒锚<br><span class="src">CR/市占/研发率</span></th><th>校验状态</th><th>说明</th></tr>
+    <tr>
+      <td>电芯制造</td>
+      <td>营收增速高、装机高增<div class="src">示例·待核实</div></td>
+      <td>毛利率中等(~15-20%)、价格战压制<div class="src">示例·待核实</div></td>
+      <td>CR 高、规模+技术壁垒、研发率高<div class="src">示例·待核实</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>高增长高壁垒被印证；利润给3分与"价值量大但利润薄"一致</td>
+    </tr>
+    <tr>
+      <td>海外户储品牌</td>
+      <td>增速高但受库存周期扰动<div class="src">示例·待核实</div></td>
+      <td>毛利显著高于国内<div class="src">示例·待核实</div></td>
+      <td>品牌/渠道/认证壁垒<div class="src">示例·待核实</div></td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td>增长给5分高于近期去库拖累的实际增速，<b>前瞻理由</b>：欧洲/新兴市场渗透+库存去化后回补；若去库超预期应下修</td>
+    </tr>
+    <tr>
+      <td>PCS/变流器</td>
+      <td>随大储放量高增<div class="src">示例·待核实</div></td>
+      <td>毛利中高、出海溢价<div class="src">示例·待核实</div></td>
+      <td>电力电子壁垒、格局较集中<div class="src">示例·待核实</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>三高各4分与数据大体匹配</td>
+    </tr>
+    <tr>
+      <td>系统集成/PACK</td>
+      <td>装机高增带动量增<div class="src">示例·待核实</div></td>
+      <td>毛利薄、价格战<div class="src">示例·待核实</div></td>
+      <td>同质化、格局分散<div class="src">示例·待核实</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>利润/壁垒低分与数据一致，确认非高价值环节</td>
+    </tr>
+    <tr>
+      <td>碳酸锂资源</td>
+      <td>价格景气回落<div class="src">示例·待核实</div></td>
+      <td>毛利随价格大幅波动<div class="src">❓ 周期性</div></td>
+      <td>资源属性、格局中等<div class="src">示例·待核实</div></td>
+      <td><span class="chk chk-na">❓数据缺失</span></td>
+      <td><b>周期叠加</b>：景气顶部高毛利不可持续，当前处回落期，利润分低位合理；结论按周期打折</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <b>高价值环节雷达图（海外户储品牌：增长5/利润5/壁垒4）</b>
+  <div class="sub">三轴：增长 / 利润 / 壁垒，外圈=5分</div>
+  <svg width="300" height="280" viewBox="0 0 300 280">
+    <g stroke="#2a313c" fill="none">
+      <polygon points="150,40 236.6,190 63.4,190"/>
+      <polygon points="150,65 215,177.5 85,177.5"/>
+      <polygon points="150,90 193.3,165 106.7,165"/>
+    </g>
+    <line x1="150" y1="140" x2="150" y2="40" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="236.6" y2="190" stroke="#2a313c"/>
+    <line x1="150" y1="140" x2="63.4" y2="190" stroke="#2a313c"/>
+    <text x="150" y="30" fill="#9aa4b2" font-size="12" text-anchor="middle">增长</text>
+    <text x="250" y="200" fill="#9aa4b2" font-size="12">利润</text>
+    <text x="20" y="200" fill="#9aa4b2" font-size="12">壁垒</text>
+    <polygon points="150,40 236.6,190 80.7,150" fill="rgba(34,195,154,.35)" stroke="#22c39a" stroke-width="2"/>
+  </svg>
+</div>
+
+<h2 class="sec">三、价值方向下探（细分赛道 / 卡位点）</h2>
+<div class="card">
+  <ul class="tree">
+    <li class="lvl1">电芯制造
+      <ul>
+        <li class="lvl2">大容量电芯（314Ah+）— 格局：头部集中；确定性高
+          <ul><li class="lvl3">卡位点：大容量+高循环寿命+成本控制能力</li></ul>
+        </li>
+        <li class="lvl2">大圆柱 / 长时储能路线 — 格局：路线未定；弹性大
+          <ul><li class="lvl3">卡位点：液流/钠电等长时路线的先发产能与订单</li></ul>
+        </li>
+      </ul>
+    </li>
+    <li class="lvl1">海外储能
+      <ul>
+        <li class="lvl2">海外户储 — 高毛利、品牌渠道壁垒；汇率/政策敏感</li>
+        <li class="lvl2">海外大储 EPC/系统 — 订单弹性大、回款周期长</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<h2 class="sec">四、产业标的（逻辑映射，非投资建议）</h2>
+<div class="sub">以下为产业链各环节代表性公司的逻辑映射与跟踪框架，非投资建议。具体公司与数据请联网核验后填入。</div>
+<div class="card">
+  <table>
+    <tr><th>环节</th><th>角色</th><th>类型</th><th>主营/纯度</th><th>地位</th><th>核心逻辑</th><th>催化剂</th><th>风险</th></tr>
+    <tr><td>电芯</td><td>龙头</td><td>电芯龙头</td><td>动力+储能电芯</td><td>全球份额领先</td><td>规模+技术壁垒+全球客户</td><td>大储招标、海外订单</td><td>价格战、份额波动</td></tr>
+    <tr><td>PCS</td><td>弹性</td><td>变流器/逆变厂</td><td>光伏逆变+储能PCS</td><td>头部</td><td>电力电子壁垒+出海溢价</td><td>海外大储放量</td><td>海外政策、汇率</td></tr>
+    <tr><td>温控</td><td>隐形冠军</td><td>热管理厂</td><td>储能液冷温控</td><td>细分龙头</td><td>高ROE、随装机扩散</td><td>液冷渗透率提升</td><td>客户集中、降价</td></tr>
+    <tr><td>海外户储</td><td>弹性</td><td>户储品牌商</td><td>海外户储系统</td><td>区域品牌</td><td>高毛利+品牌渠道</td><td>欧洲/新兴市场需求</td><td>需求波动、库存周期</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">五、投资机会综合</h2>
+
+<!-- 估值与赔率：制造类用 PE/PB；分位/PEG 缺一手数据时降级为定性区间，不编造 -->
+<div class="card">
+  <b>估值与赔率（示例）</b>
+  <div class="sub">制造类主用 PE/PB 结合周期位置；周期资源忌用景气顶部低 PE 判断便宜。不给目标价/买卖建议，只呈现估值位置与赔率。</div>
+  <div style="display:grid;grid-template-columns:60px 1fr 1fr;grid-template-rows:auto 90px 90px;gap:6px;margin:14px 0">
+    <div></div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">低估值</div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">高估值</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">高价值</div>
+    <div style="background:rgba(34,195,154,.15);border:1px solid var(--h5);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h5)">重点机会</b><br>● 温控/BMS（高ROE隐形冠军，估值定性偏中）</div>
+    <div style="background:rgba(255,180,84,.12);border:1px solid var(--h2);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h2)">好公司贵价格</b><br>● 电芯龙头（份额确定但估值定性偏高，等回调）</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">低价值</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">价值陷阱嫌疑<br>● 系统集成/PACK（低估但利润薄）</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">回避<br>● 碳酸锂（周期回落，PE陷阱风险）</div>
+  </div>
+  <table>
+    <tr><th>标的类型</th><th>当前 PE/PB</th><th>历史分位</th><th>PEG</th><th>隐含预期 vs 判断</th><th>赔率结论</th></tr>
+    <tr><td>电芯龙头</td><td><span class="chk chk-na">定性：偏高</span></td><td><span class="chk chk-na">❓ 待一手核实</span></td><td><span class="chk chk-na">❓ 待补全</span></td><td><span class="chk chk-warn">增速已被 price in</span></td><td>高胜率·低赔率</td></tr>
+    <tr><td>海外户储品牌</td><td><span class="chk chk-na">定性：中</span></td><td><span class="chk chk-na">❓ 待一手核实</span></td><td><span class="chk chk-na">❓ 待补全</span></td><td><span class="chk chk-ok">正预期差(若去库兑现)</span></td><td>中胜率·高弹性</td></tr>
+  </table>
+  <div class="src">⚠️ 本示例未获取可靠 PE/PB 历史分位与一致预期 CAGR，按防编造约束标 ❓ 并降级为定性区间，未给具体数值——正式报告须以行情终端/券商一致预期补全并标年份。</div>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 1：出海溢价</div>
+  <p>海外户储/大储毛利显著高于国内，具备品牌、渠道、认证壁垒，是利润弹性最大的方向。</p>
+  <p><span class="badge b-up">驱动假设</span> 海外需求持续高增 + 国内厂商凭性价比抢份额且维持溢价。</p>
+  <p><span class="badge b-warn">证伪条件</span> 海外加征关税/取消补贴、或本土厂商崛起致毛利快速回落。</p>
+  <p class="src">相关：海外户储品牌、PCS、电芯</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 2：技术路线卡位（大圆柱/长时储能）</div>
+  <p>长时储能与新电芯路线一旦放量，先发产能与订单的玩家享受估值与份额双升。</p>
+  <p><span class="badge b-up">驱动假设</span> 政策推动 4h+ 长时配储 + 新路线经济性跑通。</p>
+  <p><span class="badge b-warn">证伪条件</span> 路线迟迟不放量、或被现有锂电方案成本压制。</p>
+</div>
+
+<!-- 空头 / Bear Case 卡片：反共识对冲 -->
+<div class="card bear">
+  <div class="k">🐻 空头视角 / Bear Case</div>
+  <div class="sub">强制切换立场——这些主线可能错在哪。共识温度：储能出海+大储为拥挤共识。</div>
+  <p><span class="badge b-bear">空头论据 1</span> <b>全环节产能过剩</b>：电芯、系统集成扩产远超需求，中标价持续下探，"以价换量"吞噬利润，中游沦为微利制造。</p>
+  <p><span class="badge b-bear">空头论据 2</span> <b>出海溢价不可持续</b>：欧洲户储经历过一轮渠道库存暴雷；关税、本土产能崛起会快速抹平溢价，"高毛利"是阶段性红利而非壁垒。</p>
+  <p><span class="badge b-bear">空头论据 3</span> <b>需求依赖政策与配储强制</b>：国内强配储的经济性存疑（利用率低），一旦电价机制/补贴调整，装机增速可能证伪。</p>
+  <p><span class="badge b-bear">最脆弱一环</span> 主线1"出海溢价"的地基是海外毛利可持续——这恰是历史上波动最大、最易被库存与政策打脸的假设。</p>
+  <p><span class="badge b-bear">一句话证伪信号</span> 海外户储厂商<b>连续两季度毛利率下滑 + 渠道库存去化停滞</b>，或国内储能中标价<b>再降 XX% 且龙头毛利率跌破临界</b> → 判定出海/景气主线证伪。</p>
+</div>
+
+<h2 class="sec">六、风险与跟踪指标</h2>
+<div class="grid2">
+  <div class="card"><b>主要风险</b><ul>
+    <li>中游价格战：系统集成/PACK 利润持续被压缩</li>
+    <li>海外政策：关税、补贴退坡、贸易壁垒</li>
+    <li>技术路线分化：押错路线的产能减值</li>
+  </ul></div>
+  <div class="card"><b>需持续跟踪（月/季）</b><ul>
+    <li>国内储能招标量与中标价</li>
+    <li>头部电芯/PCS 厂海外订单与出口数据</li>
+    <li>碳酸锂价格（影响成本与库存）</li>
+    <li>海外户储库存去化进度</li>
+  </ul></div>
+</div>
+
+<!-- 尽调 / 待验证清单 -->
+<h2 class="sec">七、尽调追问清单（下一步该做什么）</h2>
+<div class="sub">本报告是认知脚手架，不是结论。以下是最该动手核实与追问的点。</div>
+<div class="grid2">
+  <div class="card">
+    <b>① 需一手核实的低置信数字</b>
+    <ul>
+      <li>各标的 <b>PE/PB 历史分位与一致预期净利 CAGR</b>（本报告标 ❓，须用行情终端/券商预期补全并标年份）</li>
+      <li>海外户储 <b>真实渠道库存与去化进度</b>（决定出海主线成败，须查一手渠道/公司交流）</li>
+      <li>电芯/系统 <b>最新中标价与龙头毛利率</b>（价格战程度）</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>② 一旦证伪结论就翻的关键假设</b>
+    <ul>
+      <li>"出海高毛利可持续"——若海外毛利快速回落，主线1不成立</li>
+      <li>"国内强配储持续"——若电价机制/经济性生变，装机增速证伪</li>
+    </ul>
+    <b>③ 建议下一步追问的问题</b>
+    <ul>
+      <li>海外户储库存去化到什么阶段、毛利趋势如何？</li>
+      <li>长时储能新路线的经济性与订单是否已跑通？</li>
+      <li>当前龙头估值处于历史什么分位（一手数据）？</li>
+    </ul>
+  </div>
+</div>
+
+<div class="disc">
+  免责声明：本报告由 AI 基于公开信息与联网检索生成，仅用于产业研究与学习参考，<b>不构成任何投资建议</b>。
+  数据可能存在滞后或误差，标的均为产业逻辑映射示例而非推荐。投资有风险，决策需结合个人风险承受能力并进行独立尽职调查。
+</div>
+
+</div>
+</body>
+</html>

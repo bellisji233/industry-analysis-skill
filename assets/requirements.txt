@@ -1,0 +1,5 @@
+# 可选依赖：仅当需要 fetch_valuation.py 取一手历史估值分位时安装。
+# 本 skill 核心功能（联网检索 + 生成 HTML 报告）不依赖这些包。
+#   pip install -r assets/requirements.txt
+akshare>=1.14
+pandas>=1.5

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI产业链分析报告</title>
+<style>
+  :root{--bg:#0e1116;--card:#171c24;--card2:#1f2630;--line:#2a313c;--txt:#e6e9ee;--mut:#9aa4b2;--acc:#4f9cf9;--acc2:#22c39a;--h1:#ff6b6b;--h2:#ffb454;--h3:#ffe066;--h4:#a0d995;--h5:#22c39a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+  header.rep{border-bottom:1px solid var(--line);padding-bottom:24px}
+  header.rep h1{font-size:30px;margin:0 0 8px}
+  header.rep .meta{color:var(--mut);font-size:13px}
+  .tag{display:inline-block;background:var(--card2);color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px;margin-top:4px}
+  h2.sec{font-size:21px;margin:48px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin:-8px 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;background:var(--card2)}
+  .src{color:var(--mut);font-size:11.5px}
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .chain .seg-title{font-weight:700;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px;color:#0e1116}
+  .chain .up{background:#4f9cf9}.chain .mid{background:#9aa4b2}.chain .down{background:#22c39a}
+  .node{border-radius:10px;padding:9px 11px;margin-bottom:8px;border:1px solid var(--line);font-size:12.5px}
+  .node b{display:block;font-size:13px}
+  .node[data-heat="1"]{background:var(--h1)}.node[data-heat="2"]{background:var(--h2)}.node[data-heat="3"]{background:var(--h3)}.node[data-heat="4"]{background:var(--h4)}.node[data-heat="5"]{background:var(--h5)}
+  .node[data-heat] b,.node[data-heat] span{color:#0e1116}
+  .legend{font-size:12px;color:var(--mut);margin-top:10px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 12px}
+  .heat td.cell{text-align:center;font-weight:700;color:#0e1116;width:74px}
+  .heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}.heat .v4{background:var(--h4)}.heat .v5{background:var(--h5)}
+  .heat .total{font-weight:800}.star{color:#ffe066}
+  .tree{list-style:none;padding-left:0}.tree li{margin:6px 0}
+  .tree .lvl1{font-weight:700;color:var(--acc2)}
+  .tree ul{list-style:none;border-left:2px solid var(--line);margin-left:10px;padding-left:18px}
+  .tree .lvl2{color:var(--txt)}.tree .lvl3{color:var(--mut);font-size:13px}
+  .thesis{border-left:4px solid var(--acc2)}.thesis .k{color:var(--acc2);font-weight:700}
+  .badge{font-size:11px;border-radius:6px;padding:1px 8px;border:1px solid var(--line)}
+  .b-up{color:var(--h5);border-color:var(--h5)}.b-warn{color:var(--h2);border-color:var(--h2)}
+  .chk{font-size:11.5px;border-radius:6px;padding:1px 8px;white-space:nowrap;border:1px solid}
+  .chk-ok{color:var(--h5);border-color:var(--h5)}.chk-warn{color:var(--h2);border-color:var(--h2)}
+  .chk-low{color:var(--acc);border-color:var(--acc)}.chk-na{color:var(--mut);border-color:var(--mut)}
+  .bear{border-left:4px solid var(--h1)}.bear .k{color:var(--h1);font-weight:700}.b-bear{color:var(--h1);border-color:var(--h1)}
+  .conf{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0 4px;font-size:13px;color:var(--mut)}
+  .conf b{color:var(--txt)}
+  .disc{color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+  a{color:var(--acc)}
+</style>
+</head>
+<body>
+<!--SNAPSHOT-BANNER--><div style="background:#3a2a00;color:#ffe066;border-bottom:1px solid #ffb454;padding:8px 16px;font:13px/1.5 -apple-system,'PingFang SC','Microsoft YaHei',sans-serif;text-align:center">⚠️ 示例快照 · 仅演示报告格式—— 内含市场数据/估值为生成时点，会随时间过时，请勿据此做当前投资决策。</div>
+<div class="wrap">
+
+<header class="rep">
+  <h1>AI 产业链分析报告</h1>
+  <div style="margin:10px 0">
+    <span class="tag">成长期（算力高景气 · 应用早期）</span>
+    <span class="tag">A股为主</span>
+    <span class="tag">利润高度集中于算力卖铲人</span>
+    <span class="tag">国产替代 + 出海双主线</span>
+  </div>
+  <div class="meta">生成日期：2026-07-03（数据更新至 2026 Q1 财报 + Q2 capex 指引）｜ 数据来源：联网检索（详见各处标注与文末来源）｜ 仅供研究参考，<b>非投资建议</b></div>
+</header>
+
+<div class="conf">
+  <b>数据置信度总评：</b>核心数据 <b>约 16</b> 项已联网核验并标来源（利润池分布、龙头 2026Q1 营收/净利、寒武纪现金流、四大云厂 capex 指引、HBM 供需、国产化率等）｜ <b>约 8</b> 项为模型结构化定性判断（三高打分、价值迁移方向、赔率象限）｜ 估值项本轮补入<b>机构预测口径</b>（中际旭创动态 PE、寒武纪 PS 分位），但均为卖方/第三方预测而非官方，<b>历史 PE 精确分位仍标 ❓</b>，请以 Wind/年报一手数据复核（见文末尽调清单）。
+</div>
+
+<div class="card">
+  <b>核心结论（TL;DR）</b>
+  <ul>
+    <li><b>钱在哪：</b>全球 AI 利润高度集中在"卖铲人"——2026 年全球 AI 净利约 <b>6370 亿美元</b>，英伟达 GPU + 韩厂 HBM 合计瓜分约 <b>84%</b>（美 49.3% / 韩 35%）。<b>硬件利润大增、软件估值腰斩</b>是当前最鲜明的剪刀差。</li>
+    <li><b>业绩已兑现（2026Q1 新增）：</b>光模块中际旭创 Q1 净利 <b>57.35 亿(+262%)</b>、毛利率升至 46%；AI 芯片寒武纪 Q1 净利 <b>10.13 亿(+185%)</b>、经营现金流上市来<b>首次转正</b>——硬件链从"叙事"进入"利润兑现"阶段。</li>
+    <li><b>高价值环节：</b>① AI 芯片（国产替代）② 光模块（中国全球龙头、利润已兑现）③ HBM/高速存储（价值高地但 A 股稀缺、产能锁至 2028）④ 高多层 PCB。</li>
+    <li><b>投资主线：</b>① 光模块出海（业绩已兑现、1.6T 放量）；② AI 芯片国产替代（份额+盈利双升）；③ 算力配套增量（液冷/PCB/铜连接）；④ 应用从"叙事"转"业绩"（弹性、未证实）。</li>
+    <li><b>主要风险：</b>算力资本开支虽仍加速（四大云厂 2026 合计指引约 7100 亿美元）但已进入"盈利验证期"、海外供给/政策扰动、应用变现不及预期、软件端杀估值、高估值容错低。</li>
+  </ul>
+</div>
+
+<h2 class="sec">一、产业链图谱（算力层 → 模型层 → 应用层）</h2>
+<div class="sub">颜色越绿=价值捕获/利润越高（热力 1低→5高）。单台 AI 服务器 HBM 用量是传统服务器的 8–10 倍；HBM 占 AI 服务器成本已超 20%。</div>
+<div class="card">
+  <div class="chain">
+    <div>
+      <div class="seg-title up">上游 · 算力层（硬件）</div>
+      <div class="node" data-heat="5"><b>AI 芯片 / GPU</b><span>英伟达全球垄断；国产昇腾/寒武纪替代 ｜ 价值量最大 ｜ 强壁垒</span></div>
+      <div class="node" data-heat="5"><b>HBM / 高速存储</b><span>高端产能锁单至 2028、供需长期紧 ｜ 韩厂双寡头占 99% 利润 ｜ A股稀缺</span></div>
+      <div class="node" data-heat="5"><b>光模块</b><span>中际旭创全球龙头(海外高端市占&gt;50%) ｜ 1.6T 放量、硅光占比过半 ｜ 利润已兑现</span></div>
+      <div class="node" data-heat="4"><b>高多层 PCB</b><span>服务器"钢筋骨架" ｜ 高景气高壁垒</span></div>
+      <div class="node" data-heat="3"><b>液冷散热</b><span>算力刚需增量 ｜ 国产龙头集中</span></div>
+      <div class="node" data-heat="3"><b>铜连接 / 高速线</b><span>服务器内部"高速神经" ｜ 材料壁垒</span></div>
+      <div class="node" data-heat="2"><b>电源 / 配套</b><span>价值量小、相对分散</span></div>
+    </div>
+    <div>
+      <div class="seg-title mid">中游 · 模型与算力平台</div>
+      <div class="node" data-heat="2"><b>AI 服务器 / 整机</b><span>组装薄利、价值量大 ｜ 工业富联/浪潮</span></div>
+      <div class="node" data-heat="3"><b>IDC / 算力租赁</b><span>资产型 ｜ 上架率与电价决定盈利</span></div>
+      <div class="node" data-heat="3"><b>基础大模型</b><span>烧钱卡位 ｜ 平台壁垒 ｜ 短期难盈利</span></div>
+      <div class="node" data-heat="2"><b>数据 / 标注 / 语料</b><span>偏服务、壁垒中等</span></div>
+    </div>
+    <div>
+      <div class="seg-title down">下游 · 应用层</div>
+      <div class="node" data-heat="3"><b>AI Agent / 智能体</b><span>2026 商业化元年 ｜ 弹性大、未兑现</span></div>
+      <div class="node" data-heat="3"><b>ToB 应用 / AI Coding</b><span>办公/编程/行业SaaS ｜ 渗透早期</span></div>
+      <div class="node" data-heat="2"><b>ToC 应用</b><span>流量大、变现待验证</span></div>
+      <div class="node" data-heat="3"><b>垂直行业落地</b><span>金融/医疗/制造 ｜ 数据+场景壁垒</span></div>
+    </div>
+  </div>
+  <div class="legend">价值热力：<i style="background:var(--h1)"></i>1<i style="background:var(--h2)"></i>2<i style="background:var(--h3)"></i>3<i style="background:var(--h4)"></i>4<i style="background:var(--h5)"></i>5
+    ｜ 日均 Token 调用量已达 140 万亿（两年增千倍），需求端确定性强。
+  </div>
+</div>
+
+<h2 class="sec">二、高价值方向识别（高增长 / 高利润 / 高壁垒）</h2>
+<div class="sub">每维 1–5 分，总分 15。价值迁移=未来 1–3 年价值量/利润流向（↑迁入 / ↓迁出 / →稳定）。<b>★=高价值象限（总分≥12）；⭐=高价值且迁入（最优象限）</b>。利润分叠加"是否已兑现"——算力端已兑现，模型/应用端尚未。</div>
+<div class="card">
+  <table class="heat">
+    <tr><th>环节</th><th>高增长</th><th>高利润</th><th>高壁垒</th><th>总分</th><th>价值量</th><th>国产化率</th><th>价值迁移</th><th>A股可投性</th><th></th></tr>
+    <tr><td>HBM/高速存储</td><td class="cell v5">5</td><td class="cell v5">5</td><td class="cell v5">5</td><td class="total">15</td><td>高</td><td>极低</td><td title="AI服务器HBM用量8-10倍、供需紧，价值持续向存储迁入">↑迁入</td><td>差（标的稀缺）</td><td class="star">⭐</td></tr>
+    <tr><td>AI 芯片/GPU(国产)</td><td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v5">5</td><td class="total">14</td><td>极高</td><td>~41%</td><td title="国产替代后利润再分配，份额+盈利双升">↑迁入</td><td>优（国产替代）</td><td class="star">⭐</td></tr>
+    <tr><td>光模块</td><td class="cell v5">5</td><td class="cell v5">5</td><td class="cell v4">4</td><td class="total">14</td><td>高</td><td>—(中国主导)</td><td title="1.6T放量支撑当期，但CPO替代可插拔+价格战是迁出风险，且高利润多已price in">→稳定</td><td>优</td><td class="star">★</td></tr>
+    <tr><td>高多层 PCB</td><td class="cell v5">5</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="total">13</td><td>中</td><td>高</td><td title="服务器/交换机层数升级带动单价提升，价值量迁入">↑迁入</td><td>优</td><td class="star">⭐</td></tr>
+    <tr><td>液冷散热</td><td class="cell v5">5</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="total">11</td><td>中</td><td>高</td><td title="风冷转液冷渗透率提升，价值量迁入；但格局较分散、利润端一般">↑迁入</td><td>良</td><td></td></tr>
+    <tr><td>铜连接/高速线</td><td class="cell v4">4</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="total">10</td><td>中</td><td>高</td><td title="随机柜内高速互联需求扩散">↑迁入</td><td>良</td><td></td></tr>
+    <tr><td>基础大模型</td><td class="cell v5">5</td><td class="cell v2">2</td><td class="cell v4">4</td><td class="total">11</td><td>中</td><td>—</td><td title="烧钱卡位难盈利，利润向算力端与应用端两头迁出">↓迁出</td><td>中（多未独立上市）</td><td></td></tr>
+    <tr><td>AI Agent/应用</td><td class="cell v5">5</td><td class="cell v2">2</td><td class="cell v3">3</td><td class="total">10</td><td>低</td><td>—</td><td title="当前中低价值，若商业化兑现则价值迁入——潜在预期差方向">↑迁入(潜在)</td><td>弹性（未兑现）</td><td></td></tr>
+    <tr><td>IDC/算力租赁</td><td class="cell v4">4</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="total">10</td><td>中</td><td>高</td><td title="资产型，上架率与电价决定盈利，价值相对稳定">→稳定</td><td>良</td><td></td></tr>
+    <tr><td>AI 服务器/整机</td><td class="cell v5">5</td><td class="cell v2">2</td><td class="cell v2">2</td><td class="total">9</td><td>极高</td><td>高</td><td title="组装薄利，价值被上游芯片/HBM/光模块拿走">→稳定</td><td>良（薄利大体量）</td><td></td></tr>
+  </table>
+  <div class="src">价值迁移为前瞻定性判断；HBM 虽为最优象限但 A 股缺纯正标的。重大迁移假设的证伪信号见下方 Bear Case。</div>
+</div>
+
+<div class="card">
+  <b>财务交叉校验</b>
+  <div class="sub">主观三高分须有客观财务锚兜底。状态：✅一致 ⚠️偏乐观(分&gt;数据，须前瞻理由否则下修) 🔵偏保守 ❓数据缺失。本表锚值取自报告内已联网数据，缺失项如实标 ❓，不凭空补数。</div>
+  <table>
+    <tr><th>环节</th><th>增长锚<br><span class="src">营收/净利增速</span></th><th>利润锚<br><span class="src">盈利兑现度</span></th><th>壁垒锚<br><span class="src">份额/生态</span></th><th>校验状态</th><th>说明</th></tr>
+    <tr>
+      <td>光模块</td>
+      <td>中际旭创 2026Q1 营收 194.96 亿(+192%)、净利 57.35 亿(+262%)<div class="src">东方财富/21经济·2026-04</div></td>
+      <td>毛利率升至 46%（较 2025 全年 +约3pct）、利润已兑现<div class="src">调研纪要·2026Q1</div></td>
+      <td>1.6T 份额 ≈80%、海外高端市占&gt;50%<div class="src">东方财富·2026-06</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>Q1 净利、毛利率、份额三者共同印证高增长+高利润判断，且已是真实报表利润。</td>
+    </tr>
+    <tr>
+      <td>AI 芯片(国产)</td>
+      <td>寒武纪 2026Q1 营收 28.85 亿(+159.6%)、净利 10.13 亿(+185%)、扣非(+238.6%)<div class="src">东方财富/每经·2026-04</div></td>
+      <td>经营现金流上市来首次转正(8.34 亿)，商业化落地<div class="src">钛媒体·2026-04</div></td>
+      <td>份额 2025 约4%→2026 约9%(伯恩斯坦)，但 CUDA 生态未追平<div class="src">雪球·伯恩斯坦·2026-04</div></td>
+      <td><span class="chk chk-ok">✅一致</span></td>
+      <td>较上版上修：利润已从"刚扭亏"变为连续兑现、现金流转正，数据支撑利润分。<b>但估值端隐含的高预期风险移至下方估值赔率处评估</b>。</td>
+    </tr>
+    <tr>
+      <td>HBM/高速存储</td>
+      <td>2026 约 600 亿美元(+74%)<div class="src">东方财富·2026-06</div></td>
+      <td>韩厂双寡头占 99% 利润（A 股无本土锚）</td>
+      <td>海外双寡头垄断</td>
+      <td><span class="chk chk-na">❓数据缺失</span></td>
+      <td>全球价值高地明确，但 A 股缺纯正标的，无本土财务锚可校验。</td>
+    </tr>
+    <tr>
+      <td>高多层 PCB</td>
+      <td>随服务器/交换机升级（具体 CAGR ❓）</td>
+      <td>毛利率待核（报告无沪电/胜宏具体口径 ❓）</td>
+      <td>高层数工艺 + 客户认证周期</td>
+      <td><span class="chk chk-na">❓数据缺失</span></td>
+      <td>定性景气高、壁垒实；具体财务锚需查最新年报后补全。</td>
+    </tr>
+    <tr>
+      <td>AI Agent/应用</td>
+      <td>日均 Token 两年增千倍、52% 企业已部署 Agent<div class="src">东方财富·2026-06</div></td>
+      <td>普遍未兑现；软件端估值腰斩</td>
+      <td>格局未定、护城河待建</td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td>增长分 5 但利润分已给 2（克制）；在可量化收入/续费数据出现前，不宜上修利润分。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <b>光模块（增长5 / 利润5 / 壁垒4）</b>
+    <div class="sub">利润已兑现的高价值环节</div>
+    <svg width="300" height="270" viewBox="0 0 300 270">
+      <g stroke="#2a313c" fill="none">
+        <polygon points="150,40 236.6,190 63.4,190"/><polygon points="150,65 215,177.5 85,177.5"/><polygon points="150,90 193.3,165 106.7,165"/>
+      </g>
+      <line x1="150" y1="140" x2="150" y2="40" stroke="#2a313c"/><line x1="150" y1="140" x2="236.6" y2="190" stroke="#2a313c"/><line x1="150" y1="140" x2="63.4" y2="190" stroke="#2a313c"/>
+      <text x="150" y="30" fill="#9aa4b2" font-size="12" text-anchor="middle">增长</text><text x="248" y="200" fill="#9aa4b2" font-size="12">利润</text><text x="22" y="200" fill="#9aa4b2" font-size="12">壁垒</text>
+      <polygon points="150,40 236.6,190 80.7,180" fill="rgba(34,195,154,.35)" stroke="#22c39a" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="card">
+    <b>AI Agent/应用（增长5 / 利润2 / 壁垒3）</b>
+    <div class="sub">高增长但利润未兑现——弹性逻辑</div>
+    <svg width="300" height="270" viewBox="0 0 300 270">
+      <g stroke="#2a313c" fill="none">
+        <polygon points="150,40 236.6,190 63.4,190"/><polygon points="150,65 215,177.5 85,177.5"/><polygon points="150,90 193.3,165 106.7,165"/>
+      </g>
+      <line x1="150" y1="140" x2="150" y2="40" stroke="#2a313c"/><line x1="150" y1="140" x2="236.6" y2="190" stroke="#2a313c"/><line x1="150" y1="140" x2="63.4" y2="190" stroke="#2a313c"/>
+      <text x="150" y="30" fill="#9aa4b2" font-size="12" text-anchor="middle">增长</text><text x="248" y="200" fill="#9aa4b2" font-size="12">利润</text><text x="22" y="200" fill="#9aa4b2" font-size="12">壁垒</text>
+      <polygon points="150,40 184.6,160 98,170" fill="rgba(255,180,84,.3)" stroke="#ffb454" stroke-width="2"/>
+    </svg>
+  </div>
+</div>
+
+<h2 class="sec">三、价值方向下探（细分赛道 / 卡位点）</h2>
+<div class="card">
+  <ul class="tree">
+    <li class="lvl1">光模块（确定性 + 业绩已兑现）
+      <ul>
+        <li class="lvl2">1.6T 升级 — 2026 规模化元年，中际旭创全球份额有望 50–70%；格局头部集中
+          <ul><li class="lvl3">卡位点：硅光（中际旭创长期主线）vs LPO（新易盛，低功耗低成本）技术路线</li></ul>
+        </li>
+        <li class="lvl2">CPO / 上游光器件 — 天孚通信等卡位光引擎、隔离器等高价值光器件</li>
+      </ul>
+    </li>
+    <li class="lvl1">AI 芯片（国产替代主线，份额双升）
+      <ul>
+        <li class="lvl2">云端训练/推理芯片 — 华为昇腾领跑(份额≈20%→目标50%)、寒武纪 2025 营收 +453% 首度盈利
+          <ul><li class="lvl3">卡位点：算力 + 软件生态成熟度（Transformer 支持、CUDA 替代）是真正壁垒</li></ul>
+        </li>
+        <li class="lvl2">推理侧/本地化部署 — 海光等 x86 路线，受益企业私有化大模型部署</li>
+      </ul>
+    </li>
+    <li class="lvl1">算力配套增量（跟随装机扩散）
+      <ul>
+        <li class="lvl2">液冷 — 风冷转液冷渗透率提升，国产龙头市占第一</li>
+        <li class="lvl2">高多层 PCB — 服务器/交换机升级带动层数与单价提升</li>
+        <li class="lvl2">铜连接 / 高速线 — 机柜内高速互联材料</li>
+      </ul>
+    </li>
+    <li class="lvl1">应用层（弹性、业绩拐点未到）
+      <ul>
+        <li class="lvl2">AI Agent — 2026 商业化元年，52% 用 GenAI 企业已部署 Agent；ToB 优先兑现</li>
+        <li class="lvl2">AI Coding / 办公 — 工信部"人工智能+软件"专项催化</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<h2 class="sec">四、产业标的（逻辑映射，非投资建议）</h2>
+<div class="sub">以下为产业链各环节代表性 A 股公司的逻辑映射与跟踪框架，<b>非投资建议</b>；数据为联网检索的近期口径，请以最新财报为准。</div>
+<div class="card">
+  <table>
+    <tr><th>环节</th><th>角色</th><th>代表标的(代码)</th><th>核心逻辑 / 数据</th><th>催化剂</th><th>风险</th></tr>
+    <tr><td>光模块</td><td>龙头</td><td>中际旭创(300308)</td><td>800G≈40%、1.6T&gt;50% 份额；2025 净利预增 89.5–128%（98–118 亿）</td><td>1.6T 放量、北美云厂 capex</td><td>估值高、价格战、海外集中度</td></tr>
+    <tr><td>光模块</td><td>弹性</td><td>新易盛(300502)</td><td>2025 净利预增 231–249%；LPO 路线弹性</td><td>1.6T 上量、客户拓展</td><td>客户集中、技术路线分化</td></tr>
+    <tr><td>光器件</td><td>隐形冠军</td><td>天孚通信(300394)</td><td>上游光器件/光引擎卡位，高 ROE</td><td>CPO 渗透</td><td>下游降价传导</td></tr>
+    <tr><td>AI 芯片</td><td>龙头/弹性</td><td>寒武纪(688256)</td><td>2025 营收 64.97 亿(+453%)、净利 20.59 亿，首度全年盈利</td><td>大客户放量、生态完善</td><td>估值极高、客户集中、生态短板</td></tr>
+    <tr><td>AI 芯片</td><td>弹性</td><td>海光信息(688041)</td><td>x86 路线，利好本地化部署</td><td>信创 + 私有化部署</td><td>制程/供应链</td></tr>
+    <tr><td>服务器/代工</td><td>龙头</td><td>工业富联(601138)</td><td>AI 服务器代工龙头，体量大、利润薄</td><td>算力 capex 高景气</td><td>毛利薄、周期性</td></tr>
+    <tr><td>服务器</td><td>龙头</td><td>浪潮信息(000977)</td><td>国产 AI 服务器份额领先</td><td>国产算力采购</td><td>芯片供给、价格战</td></tr>
+    <tr><td>高多层 PCB</td><td>龙头</td><td>沪电股份(002463) / 胜宏科技(300476)</td><td>服务器/交换机高多层 PCB 核心供应</td><td>层数升级、单价提升</td><td>资本开支、良率</td></tr>
+    <tr><td>液冷</td><td>隐形冠军</td><td>英维克(002837)</td><td>国内液冷市占率第一</td><td>液冷渗透率提升</td><td>客户集中、降价</td></tr>
+    <tr><td>铜连接</td><td>弹性</td><td>沃尔核材(002130) / 精达股份(600577)</td><td>高速传输材料龙头</td><td>机柜内高速互联</td><td>需求波动</td></tr>
+    <tr><td>IDC</td><td>弹性</td><td>润泽科技(300442)</td><td>智算中心资产，上架率驱动</td><td>算力租赁需求</td><td>电价、上架进度、资本开支</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">五、投资机会综合</h2>
+
+<div class="card">
+  <b>估值与赔率</b>
+  <div class="sub">三高解决"是不是好生意"，本节解决"现在是不是好价格"。<b>好行业≠好价格。</b>不给目标价/买卖建议，只呈现估值位置与赔率。⚠️ 本轮补入<b>机构/第三方预测口径</b>估值（非官方），精确历史 PE 分位仍标 ❓，请以 Wind/年报复核。</div>
+  <div style="display:grid;grid-template-columns:60px 1fr 1fr;grid-template-rows:auto 100px 100px;gap:6px;margin:14px 0">
+    <div></div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">低估值</div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">高估值</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">高价值</div>
+    <div style="background:rgba(34,195,154,.15);border:1px solid var(--h5);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h5)">重点机会（好生意+估值不贵）</b><br>● 本报告内高价值环节多已估值偏高，落入此象限者少；<br>● 高多层 PCB / 液冷等配套环节相对温和（定性判断，待分位核实）</div>
+    <div style="background:rgba(255,180,84,.12);border:1px solid var(--h2);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h2)">好公司贵价格（赔率不足/等回调）</b><br>● 光模块龙头（净利兑现但估值高）<br>● AI 芯片国产龙头（估值极高、隐含高预期）</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">低价值</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">价值陷阱嫌疑<br>● 薄利环节（服务器整机等）</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">回避 / 纯叙事<br>● 利润未兑现却已被炒作的应用标的</div>
+  </div>
+  <table>
+    <tr><th>环节/标的</th><th>当前 PE/PB</th><th>历史分位</th><th>PEG</th><th>隐含预期 vs 判断</th><th>赔率结论（定性）</th></tr>
+    <tr><td>光模块龙头</td><td>静态&gt;75x / 动态~37x<div class="src">同花顺/雪球预测·2026</div></td><td>❓</td><td>~0.3–0.5(动态口径)</td><td><span class="chk chk-warn">利润已兑现；动态 PEG 不算贵，但依赖高增持续兑现</span></td><td>高胜率 · 赔率一般</td></tr>
+    <tr><td>AI 芯片(国产)</td><td>PS~80x / 预测 PE 58–98x<div class="src">雪球机构测算·2026</div></td><td>PS 约 35% 分位<div class="src">同口径·非PE</div></td><td>❓</td><td><span class="chk chk-warn">隐含份额/盈利大幅爬坡的高预期</span></td><td>高弹性 · 赔率不足/容错低</td></tr>
+    <tr><td>算力配套(PCB/液冷)</td><td>中（❓）</td><td>❓</td><td>❓</td><td><span class="chk chk-low">跟随扩散，预期相对温和</span></td><td>中胜率 · 赔率相对占优</td></tr>
+    <tr><td>应用/Agent</td><td>不适用/亏损</td><td>❓</td><td>❓</td><td><span class="chk chk-na">利润未兑现，估值无锚</span></td><td>低胜率 · 高赔率(博弈)</td></tr>
+  </table>
+  <div class="src">PE/PEG/分位均需未来净利预测与历史 PE 序列，本报告未取到可靠来源，按防编造约束标 ❓；实际数值请以 Wind/年报一手数据核实（见文末尽调清单）。</div>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 1：光模块出海（确定性 + 业绩已兑现）</div>
+  <p>中国厂商主导全球光模块，1.6T 在 2026 规模化放量，中际旭创 Q1 净利 57.35 亿(+262%)、毛利率升至 46%，是 AI 链中"赚到真钱"的代表环节。</p>
+  <p><span class="badge b-up">驱动假设</span> 北美云厂 AI 资本开支持续高增（四大云厂 2026 合计指引约 7100 亿美元，Q1 普遍超预期并上修）+ 中国厂商维持份额与盈利能力。</p>
+  <p><span class="badge b-warn">证伪条件</span> 云厂 capex 增速拐头、CPO 取代可插拔节奏超预期、或竞争致单价快速下杀。</p>
+  <p class="src">相关：中际旭创、新易盛、天孚通信</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 2：AI 芯片国产替代（政策 + 份额双升）</div>
+  <p>华为昇腾领跑、寒武纪 2026Q1 净利 10.13 亿(+185%)且经营现金流首次转正，份额（伯恩斯坦口径 2025 约4%→2026 约9%）与盈利双升，国产化率低=替代空间大。</p>
+  <p><span class="badge b-up">驱动假设</span> 政策持续 + 国产算力性能/生态追平 + 大客户上量。</p>
+  <p><span class="badge b-warn">证伪条件</span> 软件生态迟迟难补、先进制程供给受限、或外部芯片重新大规模回流。</p>
+  <p class="src">相关：寒武纪、海光信息、华为产业链（工业富联/浪潮信息）</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 3：算力配套增量（卖铲人的卖铲人）</div>
+  <p>液冷、高多层 PCB、铜连接等随单机价值量提升而扩散，景气跟随算力但竞争格局更分散，选龙头。</p>
+  <p><span class="badge b-up">驱动假设</span> 服务器升级带动单机配套价值量持续提升。</p>
+  <p><span class="badge b-warn">证伪条件</span> 算力装机增速放缓、配套环节产能过剩致降价。</p>
+  <p class="src">相关：英维克、沪电股份、胜宏科技、沃尔核材</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 4：应用从"叙事"转"业绩"（高弹性 / 未证实）</div>
+  <p>2026 被视为 AI 应用业绩拐点之年，Agent 商业化元年；但软件端当前"估值腰斩、利润未兑现"，属高赔率高不确定方向。</p>
+  <p><span class="badge b-up">驱动假设</span> ToB Agent/AI Coding 出现可量化的收入与续费数据。</p>
+  <p><span class="badge b-warn">证伪条件</span> 变现持续低于预期、Token 降价侵蚀利润、订阅留存不佳。</p>
+  <p class="src">相关：办公/编程/垂直行业 SaaS（需个案甄别主营纯度）</p>
+</div>
+
+<div class="card bear">
+  <div class="k">🐻 空头视角 / Bear Case</div>
+  <div class="sub">强制切换立场——这套"AI 硬件高景气"叙事可能错在哪。共识温度：<b>拥挤</b>（算力/光模块/国产芯片已是市场核心主线，机构持仓与估值均高；2026Q2 美股七巨头曾单月大幅回调，市场已进入"AI 资本开支盈利验证期"）。</div>
+  <p><span class="badge b-bear">空头论据 1</span> <b>算力资本开支见顶风险：</b>全链需求总阀门是北美云厂 capex。<b>现状：2026Q1 四大云厂 capex 仍加速上行、全年指引上修至合计约 7100 亿美元，见顶尚未发生</b>——但也正因如此已 price in 高增；一旦增速拐头、或"训练→推理"切换使单位算力投入下降、或 capex 回报被质疑，硬件链量价齐杀。</p>
+  <p><span class="badge b-bear">空头论据 2</span> <b>利润集中在别人手里：</b>约 84% 行业利润被英伟达+HBM 韩厂拿走，A 股多数环节赚的是"辛苦钱/卖铲人的卖铲人"，一旦上游降价或竞争加剧，中游议价权最先受损。</p>
+  <p><span class="badge b-bear">空头论据 3</span> <b>技术路线与替代风险：</b>CPO 替代可插拔光模块、不同芯片架构/先进制程押错路线，都可能让"当期赢家"快速贬值；应用端则始终"叙事透支、利润不兑现"。</p>
+  <p><span class="badge b-bear">最脆弱一环</span> 需求侧的<b>云厂 capex 增速</b>——它是所有多头逻辑的共同地基，比格局或价格更早反映拐点。</p>
+  <p><span class="badge b-bear">一句话证伪信号</span> 北美四大云厂<b>连续两个季度下调 AI 资本开支指引</b>，或<b>光模块龙头季度净利环比转负 + 单价明显下杀</b>——出现即视为硬件主线证伪。</p>
+</div>
+
+<h2 class="sec">六、风险与跟踪指标</h2>
+<div class="grid2">
+  <div class="card"><b>主要风险</b><ul>
+    <li><b>算力资本开支见顶：</b>北美云厂 capex 是全链需求总阀门，增速拐头将冲击整条硬件链。</li>
+    <li><b>利润高度集中：</b>84% 利润被英伟达+HBM 拿走，A 股多数环节是"赚辛苦钱"，估值已高、容错低。</li>
+    <li><b>海外供给/政策：</b>先进制程、HBM、设备的供给与出口管制波动。</li>
+    <li><b>应用变现不及预期：</b>软件端"杀估值"风险，叙事透支。</li>
+    <li><b>技术路线分化：</b>硅光/LPO/CPO、不同芯片架构押错路线的减值风险。</li>
+  </ul></div>
+  <div class="card"><b>需持续跟踪（月/季）</b><ul>
+    <li>北美四大云厂季度 AI 资本开支指引（2026 合计约 7100 亿美元，重点看是否上修/下修拐点）</li>
+    <li>1.6T 光模块出货与单价、龙头季度净利</li>
+    <li>国产 AI 芯片出货量与份额、数据中心国产化率</li>
+    <li>HBM 价格与供需、AI 服务器出货</li>
+    <li>日均 Token 调用量、Agent/AI 应用付费与留存数据</li>
+    <li>液冷渗透率、PCB 层数/单价趋势</li>
+  </ul></div>
+</div>
+
+<h2 class="sec">七、尽调追问清单（下一步该做什么）</h2>
+<div class="sub">本报告是认知脚手架，不是结论。以下是最该动手核实与追问的点。</div>
+<div class="grid2">
+  <div class="card">
+    <b>① 需一手核实的低置信数字</b>
+    <ul>
+      <li>所有标 ❓ 的估值数据：光模块/AI 芯片龙头的<b>当前 PE、历史估值分位、PEG</b>（需 Wind/一手净利预测）。</li>
+      <li>高多层 PCB（沪电/胜宏）、液冷（英维克）的<b>最新毛利率、营收结构、AI 相关收入占比</b>。</li>
+      <li>国产 AI 芯片<b>实际出货量、数据中心国产化率</b>的官方/一手口径（报告内为估算区间）。</li>
+    </ul>
+    <b>② 一旦证伪结论就翻的关键假设</b>
+    <ul>
+      <li><b>北美云厂 capex 持续高增</b>——整条硬件链的地基，动摇则全链重估。</li>
+      <li><b>中国厂商维持光模块份额与盈利</b>——CPO 加速或价格战即证伪主线 1。</li>
+      <li><b>国产芯片生态/供给追平</b>——生态短板或制程受限即证伪主线 2。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>③ 建议下一步追问的 5 个问题</b>
+    <ul>
+      <li>北美四大云厂最新季度 AI 资本开支<b>指引是上修还是下修</b>？</li>
+      <li>1.6T 光模块的<b>实际出货节奏与单价走势</b>，CPO 渗透到哪一步？</li>
+      <li>寒武纪/昇腾链的<b>大客户在手订单与产能投放</b>能否支撑当前估值隐含的增速？</li>
+      <li>这些高价值环节<b>当前历史估值分位</b>到底在什么位置（贵不贵的实测答案）？</li>
+      <li>应用/Agent 有没有出现<b>可量化的付费收入与续费率</b>数据（利润兑现的第一个信号）？</li>
+    </ul>
+  </div>
+</div>
+
+<div class="disc">
+  <b>数据来源（联网检索，2026-06 基础版 + 2026-07-03 更新）：</b>
+  【2026-07 更新】东方财富/每经《寒武纪一季报营收净利双翻倍》（2026Q1 营收 28.85 亿/净利 10.13 亿）、钛媒体《寒武纪 2026 一季报点评》（现金流首次转正）、雪球《伯恩斯坦点评寒武纪一季报》（份额 4%→9%）、21 经济网/东方财富《中际旭创 Q1 净利暴增 262%》（营收 194.96 亿/毛利 46%）、山西证券《北美四大云厂业绩复盘：Capex 加速上行》（2026 合计约 7100 亿美元、各厂指引）、钛媒体《美股七巨头月蒸发 3 万亿：AI 资本开支进入盈利验证期》、同花顺/雪球（中际旭创动态 PE、寒武纪 PS 分位测算）、澎湃/通信世界（2026 HBM 供需与 HBM4）。<br>
+  【基础版】华商基金《2026 或成 1.6T 光模块规模化元年》、东方财富《6370 亿 2026 全球 AI 利润池拆解》《2026 AI 智能算力服务研究报告：HBM、CPO 与重构》、21 经济网《AI 产业链迎来价值共振》、新浪财经《华为 2026 将占中国 AI 芯片 50% 份额》、证券时报《国产 AI 算力持续突破》、界面新闻《光模块"易中天"谁更强》、钛媒体《AI 硬件利润大增、软件估值腰斩》、华尔街见闻《2026 AI 主线》等。<br><br>
+  免责声明：本报告由 AI 基于公开信息与联网检索生成，仅用于产业研究与学习参考，<b>不构成任何投资建议</b>。数据可能存在滞后或误差，标的均为产业逻辑映射示例而非推荐。投资有风险，决策需结合个人风险承受能力并进行独立尽职调查。
+</div>
+
+</div>
+</body>
+</html>

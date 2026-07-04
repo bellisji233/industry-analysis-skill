@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>核电行业分析报告</title>
+<style>
+  :root{--bg:#0e1116;--card:#171c24;--card2:#1f2630;--line:#2a313c;--txt:#e6e9ee;--mut:#9aa4b2;--acc:#4f9cf9;--acc2:#22c39a;--h1:#ff6b6b;--h2:#ffb454;--h3:#ffe066;--h4:#a0d995;--h5:#22c39a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px}
+  header.rep{border-bottom:1px solid var(--line);padding-bottom:24px}
+  header.rep h1{font-size:30px;margin:0 0 8px}
+  header.rep .meta{color:var(--mut);font-size:13px}
+  .tag{display:inline-block;background:var(--card2);color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:12px;margin-right:8px;margin-top:4px}
+  h2.sec{font-size:21px;margin:48px 0 16px;padding-left:12px;border-left:4px solid var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin:-8px 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .kpi{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .kpi .n{font-size:24px;font-weight:800;color:var(--acc2)}
+  .kpi .l{font-size:12px;color:var(--mut);margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;background:var(--card2)}
+  .src{color:var(--mut);font-size:11.5px}
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .chain .seg-title{font-weight:700;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px;color:#0e1116}
+  .chain .up{background:#4f9cf9}.chain .mid{background:#9aa4b2}.chain .down{background:#22c39a}
+  .node{border-radius:10px;padding:9px 11px;margin-bottom:8px;border:1px solid var(--line);font-size:12.5px}
+  .node b{display:block;font-size:13px}
+  .node[data-heat="1"]{background:var(--h1)}.node[data-heat="2"]{background:var(--h2)}.node[data-heat="3"]{background:var(--h3)}.node[data-heat="4"]{background:var(--h4)}.node[data-heat="5"]{background:var(--h5)}
+  .node[data-heat] b,.node[data-heat] span{color:#0e1116}
+  .legend{font-size:12px;color:var(--mut);margin-top:10px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 12px}
+  .heat td.cell{text-align:center;font-weight:700;color:#0e1116;width:70px}
+  .heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}.heat .v4{background:var(--h4)}.heat .v5{background:var(--h5)}
+  .heat .total{font-weight:800}.star{color:#ffe066}
+  .chk{font-size:11.5px;border-radius:6px;padding:1px 8px;white-space:nowrap;border:1px solid}
+  .chk-ok{color:var(--h5);border-color:var(--h5)}.chk-warn{color:var(--h2);border-color:var(--h2)}.chk-low{color:var(--acc);border-color:var(--acc)}.chk-na{color:var(--mut);border-color:var(--mut)}
+  .tree{list-style:none;padding-left:0}.tree li{margin:6px 0}
+  .tree .lvl1{font-weight:700;color:var(--acc2)}
+  .tree ul{list-style:none;border-left:2px solid var(--line);margin-left:10px;padding-left:18px}
+  .tree .lvl2{color:var(--txt)}.tree .lvl3{color:var(--mut);font-size:13px}
+  .thesis{border-left:4px solid var(--acc2)}.thesis .k{color:var(--acc2);font-weight:700}
+  .badge{font-size:11px;border-radius:6px;padding:1px 8px;border:1px solid var(--line)}
+  .b-up{color:var(--h5);border-color:var(--h5)}.b-warn{color:var(--h2);border-color:var(--h2)}
+  .disc{color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+  a{color:var(--acc)}
+</style>
+</head>
+<body>
+<!--SNAPSHOT-BANNER--><div style="background:#3a2a00;color:#ffe066;border-bottom:1px solid #ffb454;padding:8px 16px;font:13px/1.5 -apple-system,'PingFang SC','Microsoft YaHei',sans-serif;text-align:center">⚠️ 示例快照 · 仅演示报告格式—— 内含市场数据/估值为生成时点，会随时间过时，请勿据此做当前投资决策。</div>
+<div class="wrap">
+
+<header class="rep">
+  <h1>核电行业分析报告</h1>
+  <div style="margin:10px 0">
+    <span class="tag">核准提速成长期</span>
+    <span class="tag">A股为主</span>
+    <span class="tag">运营端=类公用事业(确定性)</span>
+    <span class="tag">设备/铀=高壁垒</span>
+    <span class="tag">聚变=远期主题</span>
+  </div>
+  <div class="meta">生成日期：2026-06-26 ｜ 数据来源：联网检索（详见各处标注与文末来源）｜ 仅供研究参考，<b>非投资建议</b></div>
+</header>
+
+<div class="card">
+  <b>核心结论（TL;DR）</b>
+  <ul>
+    <li><b>产业节奏：</b>中国连续 4 年每年核准 10+ 台，在运+在建+核准达 112 台/1.26 亿千瓦（全球第一），2030 目标在运 1.1 亿千瓦——<b>需求长周期确定</b>。</li>
+    <li><b>价值分布：</b>设备投资中核岛占 50%、常规岛 30%、辅助 20%；上游核燃料/铀=资源+牌照双垄断。<b>高壁垒集中在核岛主设备、核燃料、核级材料</b>。</li>
+    <li><b>关键反差：</b>运营龙头壁垒极强、估值不贵、装机持续增长，但 2025 受电价市场化拖累<b>净利反而下滑约 10%</b>——是"<b>量增价减</b>"，属高胜率·低赔率的确定性配置，而非高弹性机会。</li>
+    <li><b>纯度陷阱：</b>核岛设备龙头（东方电气/上海电气）核电只占其部分收入，弹性被稀释，需看整体而非"纯核电"逻辑。</li>
+    <li><b>主要风险：</b>电价市场化压制盈利、机组投产/核准节奏、聚变等远期主题估值透支。</li>
+  </ul>
+</div>
+
+<h2 class="sec">一、产业概览（需求长周期确定）</h2>
+<div class="grid3">
+  <div class="kpi"><div class="n">112 台</div><div class="l">在运+在建+核准机组<br>合计 1.26 亿千瓦(全球第一)</div></div>
+  <div class="kpi"><div class="n">58 台</div><div class="l">在运机组<br>(2025末, 6105万千瓦)</div></div>
+  <div class="kpi"><div class="n">10+ 台/年</div><div class="l">连续 4 年核准节奏</div></div>
+  <div class="kpi"><div class="n">1.1 亿千瓦</div><div class="l">2030 在运目标<br>(2040 目标 2 亿千瓦)</div></div>
+  <div class="kpi"><div class="n">90%+</div><div class="l">三代核电国产化率<br>(华龙一号主设备 100%)</div></div>
+  <div class="kpi"><div class="n">6.3 万套</div><div class="l">单台华龙一号设备<br>(近 6000 家供应链企业)</div></div>
+</div>
+
+<h2 class="sec">二、产业链图谱</h2>
+<div class="sub">颜色越绿=价值捕获/壁垒越高（热力 1低→5高）。设备投资中核岛占 50%、常规岛 30%、辅助 20%。</div>
+<div class="card">
+  <div class="chain">
+    <div>
+      <div class="seg-title up">上游 · 燃料 & 材料</div>
+      <div class="node" data-heat="5"><b>天然铀 / 核燃料</b><span>铀矿+转化+浓缩+组件 ｜ 资源+牌照双垄断 ｜ A股纯标的稀缺</span></div>
+      <div class="node" data-heat="4"><b>核级材料</b><span>核级锆材/特种合金/不锈钢管 ｜ 隐形冠军</span></div>
+    </div>
+    <div>
+      <div class="seg-title mid">中游 · 设备 & 建设</div>
+      <div class="node" data-heat="5"><b>核岛主设备(占设备50%)</b><span>压力容器/蒸发器/稳压器/主泵 ｜ 核安全资质寡头</span></div>
+      <div class="node" data-heat="3"><b>常规岛设备(占30%)</b><span>汽轮机/发电机 ｜ 壁垒中等</span></div>
+      <div class="node" data-heat="3"><b>辅助系统/仪控(占20%)</b><span>泵阀/DCS仪控 ｜ 较分散</span></div>
+      <div class="node" data-heat="3"><b>核电建设/工程</b><span>建造周期长、资质强</span></div>
+    </div>
+    <div>
+      <div class="seg-title down">下游 · 运营</div>
+      <div class="node" data-heat="4"><b>核电运营</b><span>基荷、现金流稳、牌照极强 ｜ 类公用事业 ｜ 受电价市场化压制</span></div>
+      <div class="node" data-heat="3"><b>新能源运营(延伸)</b><span>运营商第二增长曲线</span></div>
+    </div>
+  </div>
+  <div class="legend">价值热力：<i style="background:var(--h1)"></i>1<i style="background:var(--h2)"></i>2<i style="background:var(--h3)"></i>3<i style="background:var(--h4)"></i>4<i style="background:var(--h5)"></i>5
+    ｜ 前沿主题：四代堆 / 小堆(玲龙一号 2026 并网) / 可控核聚变（远期、未商业化）。</div>
+</div>
+
+<h2 class="sec">三、高价值方向识别（三高打分）</h2>
+<div class="sub">每维 1–5 分，总分 15。★=高价值象限。注意：运营端"高壁垒"但当下"利润被电价压制"，分值已反映。</div>
+<div class="card">
+  <table class="heat">
+    <tr><th>环节</th><th>高增长</th><th>高利润</th><th>高壁垒</th><th>总分</th><th>价值量</th><th>A股可投性</th><th></th></tr>
+    <tr><td>核岛主设备</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="cell v5">5</td><td class="total">13</td><td>高</td><td>良(纯度低)</td><td class="star">★</td></tr>
+    <tr><td>天然铀/核燃料</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="cell v5">5</td><td class="total">13</td><td>高</td><td>差(标的稀缺)</td><td class="star">★</td></tr>
+    <tr><td>核级材料</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="cell v4">4</td><td class="total">12</td><td>中</td><td>良(隐形冠军)</td><td class="star">★</td></tr>
+    <tr><td>核电运营</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="cell v5">5</td><td class="total">11</td><td>极高</td><td>优(确定性)</td><td class="star">★</td></tr>
+    <tr><td>常规岛设备</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="total">9</td><td>中</td><td>良</td><td></td></tr>
+    <tr><td>辅助/仪控</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="cell v3">3</td><td class="total">9</td><td>低</td><td>中</td><td></td></tr>
+    <tr><td>可控核聚变(主题)</td><td class="cell v5">5</td><td class="cell v1">1</td><td class="cell v5">5</td><td class="total">11</td><td>—</td><td>主题(未兑现)</td><td></td></tr>
+  </table>
+</div>
+
+<!-- 财务交叉校验 -->
+<div class="card">
+  <b>财务交叉校验</b>
+  <div class="sub">主观三高分 vs 客观财务数据。✅一致 ⚠️偏乐观(须前瞻理由否则下修) 🔵偏保守 ❓数据缺失</div>
+  <table>
+    <tr><th>环节</th><th>增长锚</th><th>利润锚</th><th>壁垒锚</th><th>校验</th><th>说明</th></tr>
+    <tr>
+      <td>核电运营</td>
+      <td>装机年均 5–8% 增长（在建机组明确）<div class="src">运营商口径·2026</div></td>
+      <td>中国广核 2025 归母 -9.9%；PB 1.75、PE 18.9、ROE≈9–10%<div class="src">公司年报·2026</div></td>
+      <td>牌照垄断、CR2 极高<div class="src">行业·2026</div></td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td><b>量增价减</b>：装机增长真实，但电价市场化致 2025 利润下滑，"高增长"分需谨慎，已下调至 3。壁垒分 5 获数据印证。</td>
+    </tr>
+    <tr>
+      <td>核岛主设备</td>
+      <td>核准提速带来订单增长<div class="src">行业·2026</div></td>
+      <td>东方/上海电气整体毛利偏低（核电仅部分业务）<div class="src">公司·2026</div></td>
+      <td>核安全资质寡头、市占高(堆内构件95%)<div class="src">行业·2026</div></td>
+      <td><span class="chk chk-warn">⚠️偏乐观</span></td>
+      <td><b>纯度低</b>：核电收入占龙头整体比例小，弹性被稀释；"高利润"分按公司整体而非纯核电业务，需提示。</td>
+    </tr>
+    <tr>
+      <td>天然铀/核燃料</td>
+      <td>铀价上行 + 装机拉动<div class="src">行业·2026</div></td>
+      <td>中国铀业刚 IPO（募资 41.1 亿），公开财务有限<div class="src">2026</div></td>
+      <td>资源+牌照双垄断<div class="src">行业·2026</div></td>
+      <td><span class="chk chk-na">❓数据缺失</span></td>
+      <td>壁垒判断扎实，但盈利缺历史财务佐证，置信度下调；以定性为主。</td>
+    </tr>
+  </table>
+</div>
+
+<h2 class="sec">四、价值方向下探（细分赛道）</h2>
+<div class="card">
+  <ul class="tree">
+    <li class="lvl1">核岛主设备（壁垒最高的设备环节）
+      <ul>
+        <li class="lvl2">压力容器 / 蒸汽发生器 / 稳压器 — 寡头格局，东方电气全谱系、上海电气堆内构件市占 95%
+          <ul><li class="lvl3">卡位点：核安全资质 + 整机交付能力；但需看公司整体而非纯核电纯度</li></ul>
+        </li>
+        <li class="lvl2">主管道 / 核级特种管 — 台海核电、久立特材等，材料壁垒</li>
+      </ul>
+    </li>
+    <li class="lvl1">核电运营（确定性 / 类公用事业）
+      <ul>
+        <li class="lvl2">中国广核、中国核电 — 牌照垄断、基荷稳定现金流、股息；2026-2028 投产高峰
+          <ul><li class="lvl3">关键变量：电价市场化（压制利润）vs 装机增长（推动利润）的赛跑</li></ul>
+        </li>
+      </ul>
+    </li>
+    <li class="lvl1">前沿主题（远期、高不确定）
+      <ul>
+        <li class="lvl2">小堆 SMR — 玲龙一号 2026 计划并网，全球首个陆上商用小堆过 IAEA</li>
+        <li class="lvl2">可控核聚变 — "亿度"运行突破，但商业化遥远；属主题博弈而非业绩</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<h2 class="sec">五、产业标的（逻辑映射，非投资建议）</h2>
+<div class="sub">各环节代表性 A 股公司的逻辑映射与跟踪框架，<b>非投资建议</b>；数据为联网近期口径，请以最新财报为准。</div>
+<div class="card">
+  <table>
+    <tr><th>环节</th><th>角色</th><th>标的(代码)</th><th>核心逻辑 / 数据</th><th>催化剂</th><th>风险</th></tr>
+    <tr><td>运营</td><td>龙头/确定性</td><td>中国广核(003816)</td><td>在运28+在建20台，占全国 45%；2025 营收 757 亿(-4.1%)、归母 97.7 亿(-9.9%)；股息率 1.85%；装机年均 5–8%</td><td>机组投产、电价企稳</td><td>电价市场化、利润短期承压</td></tr>
+    <tr><td>运营</td><td>龙头/成长</td><td>中国核电(601985)</td><td>在建及核准 18 台(占现有 79%)，2026-2028 投产高峰；股息率 2.11%；新能源装机年均 25%+</td><td>投产高峰、新能源放量</td><td>电价、新能源补贴/消纳</td></tr>
+    <tr><td>核岛设备</td><td>龙头</td><td>东方电气(600875)</td><td>核岛全谱系，蒸发器/稳压器核心供应，四代堆领先；<b>核电仅部分收入</b></td><td>核准订单、四代堆</td><td>纯度低、整体盈利受其他电力业务影响</td></tr>
+    <tr><td>核岛设备</td><td>龙头</td><td>上海电气(601727)</td><td>堆内构件市占 95%，主泵/汽轮机全覆盖，华龙一号主力；<b>纯度低</b></td><td>华龙批量化</td><td>纯度低、体量大弹性弱</td></tr>
+    <tr><td>核级材料</td><td>隐形冠军</td><td>久立特材(002318)</td><td>核级特种管/蒸发器管，高壁垒材料</td><td>核电+油气需求</td><td>下游集中、周期</td></tr>
+    <tr><td>核级材料</td><td>弹性</td><td>台海核电(002366)</td><td>主管道供应</td><td>核准放量</td><td>体量小、波动大</td></tr>
+    <tr><td>聚变主题</td><td>主题概念</td><td>联创光电/英杰电气/楚江新材 等</td><td>高温超导磁体/电源/材料等聚变概念，<b>尚无聚变实质收入</b></td><td>聚变大会/装置进展</td><td>纯主题、估值透支、证伪快</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">六、投资机会综合</h2>
+
+<div class="card">
+  <b>估值与赔率</b>
+  <div class="sub">三高解决"是不是好生意"，本节解决"现在是不是好价格"。不给目标价/买卖建议，只呈现估值位置与赔率。</div>
+  <div style="display:grid;grid-template-columns:60px 1fr 1fr;grid-template-rows:auto 90px 90px;gap:6px;margin:14px 0">
+    <div></div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">低估值</div>
+    <div style="text-align:center;color:var(--mut);font-size:12px">高估值</div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">高价值/壁垒</div>
+    <div style="background:rgba(34,195,154,.15);border:1px solid var(--h5);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h5)">确定性底仓</b><br>● 中国广核 / 中国核电<br><span class="src">壁垒强+估值不贵，但赔率有限(高胜率·低赔率)</span></div>
+    <div style="background:rgba(255,180,84,.12);border:1px solid var(--h2);border-radius:8px;padding:8px;font-size:12px"><b style="color:var(--h2)">主题透支</b><br>● 可控核聚变概念<br><span class="src">壁垒高但无业绩、估值透支</span></div>
+    <div style="writing-mode:vertical-rl;text-align:center;color:var(--mut);font-size:12px;align-self:center">中价值/纯度低</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">核级材料隐形冠军<br>● 久立特材 等</div>
+    <div style="background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px">设备龙头(纯度低)<br>● 东方/上海电气<br><span class="src">看整体估值而非纯核电</span></div>
+  </div>
+  <table>
+    <tr><th>标的</th><th>PE / PB</th><th>历史分位</th><th>股息率</th><th>隐含预期 vs 判断</th><th>赔率结论</th></tr>
+    <tr><td>中国广核(003816)</td><td>PE≈18.9 / PB≈1.75</td><td>中枢偏下</td><td>1.85%</td><td><span class="chk chk-ok">估值未透支</span></td><td>高胜率·低赔率(电价压制利润释放)</td></tr>
+    <tr><td>中国核电(601985)</td><td>PE 类似</td><td>中枢偏下</td><td>2.11%</td><td><span class="chk chk-ok">成长性略优</span></td><td>高胜率·中低赔率(投产高峰+新能源)</td></tr>
+    <tr><td>聚变概念</td><td>高</td><td>高分位</td><td>—</td><td><span class="chk chk-warn">负预期差</span></td><td>低胜率·高赔率(纯主题博弈)</td></tr>
+  </table>
+  <div class="src">PE/PB 为联网近期口径(2026)；运营商利润受电价市场化影响，PEG 因短期负增长不适用，以分位+股息+装机增长综合判断。</div>
+</div>
+
+<div class="card thesis">
+  <div class="k">主线 1：运营龙头——确定性配置（高胜率·低赔率）</div>
+  <p>牌照垄断、基荷稳定现金流、估值中枢偏下、装机长期增长。但短期"量增价减"，更适合作为防御/股息型底仓，而非高弹性进攻品种。</p>
+  <p><span class="badge b-up">驱动假设</span> 机组持续投产 + 电价企稳，利润重回增长。</p>
+  <p><span class="badge b-warn">证伪条件</span> 电价市场化持续压制、利润连续多年下滑，装机增长无法转化为利润。</p>
+  <p class="src">相关：中国广核、中国核电</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 2：高壁垒上游——核燃料/铀 与 核级材料</div>
+  <p>资源+牌照双垄断（铀）与材料隐形冠军（核级管材）壁垒最硬，受益装机放量与铀价上行；但 A 股纯标的稀缺、需甄别纯度。</p>
+  <p><span class="badge b-up">驱动假设</span> 装机放量 + 铀价上行 + 国产自供提升。</p>
+  <p><span class="badge b-warn">证伪条件</span> 铀价回落、或标的核电业务占比过小弹性不足。</p>
+  <p class="src">相关：中国铀业(刚上市)、久立特材、台海核电</p>
+</div>
+<div class="card thesis">
+  <div class="k">主线 3：远期主题——小堆/聚变（高赔率·低胜率）</div>
+  <p>玲龙一号小堆 2026 并网、聚变"亿度"突破带来主题催化，但商业化遥远、概念股多无实质收入，属事件驱动博弈而非业绩投资。</p>
+  <p><span class="badge b-up">驱动假设</span> 政策/装置里程碑持续催化情绪。</p>
+  <p><span class="badge b-warn">证伪条件</span> 进展低于预期、估值透支后回落——证伪快、波动大。</p>
+  <p class="src">相关：聚变概念(联创光电/英杰电气/楚江新材等，高度主题化)</p>
+</div>
+
+<h2 class="sec">七、风险与跟踪指标</h2>
+<div class="grid2">
+  <div class="card"><b>主要风险</b><ul>
+    <li><b>电价市场化：</b>压制运营端利润释放，是当前最现实的拖累（2025 龙头净利已下滑约 10%）。</li>
+    <li><b>纯度陷阱：</b>设备龙头核电占比小，"核电逻辑"弹性被整体业务稀释。</li>
+    <li><b>节奏风险：</b>核准/投产节奏、工程进度与造价。</li>
+    <li><b>主题透支：</b>聚变/小堆概念估值高、证伪快。</li>
+    <li><b>安全/舆情：</b>核安全事件的尾部风险（低概率高影响）。</li>
+  </ul></div>
+  <div class="card"><b>需持续跟踪（月/季）</b><ul>
+    <li>年度核准机组数量、在建机组投产进度</li>
+    <li>核电上网电价 / 市场化交易电价走势</li>
+    <li>运营商季度归母净利、装机增量、股息政策</li>
+    <li>天然铀价格、中国铀业自供率</li>
+    <li>玲龙一号并网、四代堆/聚变装置里程碑</li>
+    <li>设备龙头核电订单与核电收入占比变化</li>
+  </ul></div>
+</div>
+
+<div class="disc">
+  <b>数据来源（联网检索，2026-06）：</b>
+  新浪财经《2026 核电行业全景调研》《2026 核电不破不立，成长逻辑》、中国核能行业协会《核电发展：核岛设备商最为有利》、国家核安全局《核电装备制造产业现状》、中新网《核电建设热潮下设备厂忙到飞起》、东方财富《核电产业链核心 17 家公司》《中国广核/中国核电深度研究报告》《中国第四代核电主要上市公司》、同花顺/亿牛网（中国广核估值）、新浪财经《小型模块化核能 SMR》、财联社《可控核聚变》专题、IIM《第四代核电产业报告》等。<br><br>
+  免责声明：本报告由 AI 基于公开信息与联网检索生成，仅用于产业研究与学习参考，<b>不构成任何投资建议</b>。数据可能存在滞后或误差，标的均为产业逻辑映射示例而非推荐（聚变概念股名称为主题示意，请独立核实）。投资有风险，决策需结合个人风险承受能力并进行独立尽职调查。
+</div>
+
+</div>
+</body>
+</html>
